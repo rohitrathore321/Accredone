@@ -1,0 +1,49 @@
+import {MD3DarkTheme as DefaultTheme} from 'react-native-paper';
+import {appColorsCode} from "../styles/appColorsCode";
+
+export const themeDark = {
+  ...DefaultTheme,
+  // @ts-ignore
+  colors: {
+    primary: appColorsCode.primary,
+    onPrimary: appColorsCode.primary,
+    primaryContainer: appColorsCode.primary,
+    onPrimaryContainer: appColorsCode.primary,
+    secondary: appColorsCode.primary,
+    onSecondary: appColorsCode.primary,
+    secondaryContainer: appColorsCode.primary,
+    onSecondaryContainer: appColorsCode.primary,
+    tertiary: appColorsCode.primary,
+    onTertiary: appColorsCode.primary,
+    tertiaryContainer: appColorsCode.primary,
+    onTertiaryContainer: appColorsCode.primary,
+    error: appColorsCode.primary,
+    onError: appColorsCode.primary,
+    errorContainer: appColorsCode.primary,
+    onErrorContainer: appColorsCode.primary,
+    background: appColorsCode.primary,
+    onBackground: appColorsCode.primary,
+    surface: appColorsCode.primary,
+    onSurface: appColorsCode.primary,
+    surfaceVariant: appColorsCode.primary,
+    onSurfaceVariant: appColorsCode.primary,
+    outline: appColorsCode.primary,
+    outlineVariant: appColorsCode.primary,
+    shadow: appColorsCode.primary,
+    scrim: appColorsCode.primary,
+    inverseSurface: appColorsCode.primary,
+    inverseOnSurface: appColorsCode.primary,
+    inversePrimary: appColorsCode.primary,
+    elevation: {
+      level0: appColorsCode.primary,
+      level1: appColorsCode.primary,
+      level2: appColorsCode.primary,
+      level3: appColorsCode.primary,
+      level4: appColorsCode.primary,
+      level5: appColorsCode.primary,
+    },
+    surfaceDisabled: appColorsCode.primary,
+    onSurfaceDisabled: appColorsCode.primary,
+    backdrop: appColorsCode.primary,
+  }
+};
