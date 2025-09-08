@@ -76,7 +76,7 @@ const LoginSceen = ({ navigation }: any) => {
             </View>
 
             {/* Gradient Button */}
-            <TouchableOpacity style={{ marginTop: 20 }} onPress={() => { navigation.navigate('drawer') }}>
+            <TouchableOpacity style={{ marginTop: 20 }} >
                 <LinearGradient
                     //   colors={['#0652f7', '#6440b1']}
                     colors={["#6366f1", "#9333ea", "#db2777"]}
