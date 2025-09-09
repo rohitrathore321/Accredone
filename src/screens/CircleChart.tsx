@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     width: width * 0.4,       // ✅ aligns with carousel width
     justifyContent: "center",
     alignItems: "center",
+    elevation: 5
 
   },
   heading: {

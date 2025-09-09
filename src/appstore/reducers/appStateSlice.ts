@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import i18n from '../../language/i18next';
 
 export interface AppState {
   isDark: boolean;
   routeName: string;
   isConnected: boolean;
   isBackground: boolean;
+  value: string;
 }
 
 const initialState: AppState = {
@@ -12,6 +14,7 @@ const initialState: AppState = {
   routeName: 'root',
   isConnected: false,
   isBackground: false,
+  value: 'en',
 };
 
 export const appStateSlice = createSlice({
@@ -30,10 +33,14 @@ export const appStateSlice = createSlice({
     updateProcess: (state, action) => {
       state.isBackground = action.payload;
     },
+    changeLanguage: (state, action) => {
+      state.value = action.payload;
+       i18n.changeLanguage(action.payload);
+    },
   },
 });
 
-export const { setTheme, updateRoute, updateConnection, updateProcess } =
+export const { setTheme, updateRoute, updateConnection, updateProcess,changeLanguage } =
   appStateSlice.actions;
 
 export default appStateSlice.reducer;

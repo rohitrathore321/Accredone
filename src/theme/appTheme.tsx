@@ -13,13 +13,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Platform, useColorScheme } from 'react-native';
 import { setTheme, updateRoute } from '../appstore/reducers/appStateSlice';
 import MainNavigator from '../Navigations/stack/main';
+import { useAppTheme } from '../hooks/colorTheme';
 export const navigationRef = createNavigationContainerRef();
 
 const AppTheme = ({ setState, setIsDark }: any) => {
   const dispatch = useDispatch();
   const colorScheme = useColorScheme();
   const isDark = useSelector((state: any) => state.app.isDark);
-
+  
   useEffect(() => {
     dispatch(setTheme(colorScheme === 'dark'));
     setIsDark(colorScheme === 'dark');

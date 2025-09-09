@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import {Icon} from "react-native-paper";
+import { Card, Icon } from "react-native-paper";
 
 const upcomingData = [
-
   {
     id: "1",
     title: "ISO 14001 Surveillance",
@@ -28,6 +27,17 @@ const upcomingData = [
   },
   {
     id: "3",
+    title: "ISO 45001 Initial Assessment",
+    priority: "High",
+    priorityColor: "#FF6B6B", // red
+    company: "SafeWork Solutions",
+    short: "SS",
+    date: "2024-07-18",
+    time: "10:30",
+    mode: "On-Site",
+  },
+  {
+    id: "4",
     title: "ISO 45001 Initial Assessment",
     priority: "High",
     priorityColor: "#FF6B6B", // red
@@ -75,34 +85,35 @@ const recentData = [
 ];
 
 const Upcoming = () => {
-  const renderUpcomingCard = ({ item }: any) => (
-    <TouchableOpacity style={[styles.card, { borderLeftColor: item.priorityColor }]}>
-      <View style={styles.leftCircle}>
-        <Text style={styles.shortText}>{item.short}</Text>
-      </View>
+  const [showAll, setShowAll] = useState(false);
 
-      {/* Info section */}
-      <View style={styles.info}>
-        {/* Title + Priority in same row */}
-        <View style={styles.titleRow}>
-          <Text style={styles.title}>{item.title}</Text>
-          <View style={[styles.priorityBadge, { backgroundColor: item.priorityColor }]}>
-            <Text style={styles.priorityText}>{item.priority}</Text>
-          </View>
+  const renderUpcomingCard = useCallback(({ item }: any) => (
+    <Card style={[styles.card, { borderLeftColor: item.priorityColor }]}>
+      <Card.Content style={styles.cardContent}>
+        <View style={styles.leftCircle}>
+          <Text style={styles.shortText}>{item.short}</Text>
         </View>
 
-        <Text style={styles.company}>{item.company}</Text>
-        <Text style={styles.datetime}>
-          {item.date} • {item.time} • {item.mode}
-        </Text>
-      </View>
+        <View style={styles.info}>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>{item.title}</Text>
+            <View style={[styles.priorityBadge, { backgroundColor: item.priorityColor }]}>
+              <Text style={styles.priorityText}>{item.priority}</Text>
+            </View>
+          </View>
 
-      {/* Navigation icon */}
-      <Icon source="chevron-right" size={28} color="#444" />
-    </TouchableOpacity>
-  );
+          <Text style={styles.company}>{item.company}</Text>
+          <Text style={styles.datetime}>
+            {item.date} • {item.time} • {item.mode}
+          </Text>
+        </View>
 
-  const renderRecentCard = ({ item }: any) => (
+        <Icon source="chevron-right" size={28} color="#444" />
+      </Card.Content>
+    </Card>
+  ), []);
+
+  const renderRecentCard = useCallback(({ item }: any) => (
     <View style={styles.recentCard}>
       <View style={[styles.iconCircle, { backgroundColor: item.color + "22" }]}>
         <Icon source={item.icon} size={22} color={item.color} />
@@ -113,26 +124,26 @@ const Upcoming = () => {
         <Text style={styles.recentTime}>{item.timeAgo}</Text>
       </View>
     </View>
-  );
+  ), []);
+
+  const dataToShow = showAll ? upcomingData : upcomingData.slice(0, 3);
 
   return (
-    <View style={styles.container}>
-      {/* Upcoming Section */}
+    <>
       <View style={styles.header}>
         <Text style={styles.heading}>Upcoming Assessments</Text>
-        <TouchableOpacity>
-          <Text style={styles.viewAll}>View All</Text>
+        <TouchableOpacity onPress={() => setShowAll((prev) => !prev)}>
+          <Text style={styles.viewAll}>{showAll ? "Show Less" : "View All"}</Text>
         </TouchableOpacity>
       </View>
 
       <FlatList
-        data={upcomingData}
+        data={dataToShow}
         keyExtractor={(item) => "upcoming-" + item.id}
         renderItem={renderUpcomingCard}
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingHorizontal: 16 }}
       />
 
-      {/* Recent Activity Section */}
       <View style={styles.header}>
         <Text style={styles.heading}>Recent Activity</Text>
       </View>
@@ -141,23 +152,21 @@ const Upcoming = () => {
         data={recentData}
         keyExtractor={(item) => "recent-" + item.id}
         renderItem={renderRecentCard}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingHorizontal: 16 }}
       />
-    </View>
+    </>
   );
 };
 
 export default Upcoming;
 
 const styles = StyleSheet.create({
-  container: {
-     marginHorizontal: 3,
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 12,
     marginTop: 8,
+    marginHorizontal: 16,
   },
   heading: {
     fontSize: 16,
@@ -169,16 +178,17 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#3B82F6",
   },
-  // Upcoming Cards
   card: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    marginBottom: 12,
+    elevation: 5,
+    borderLeftWidth: 4,
+  },
+  cardContent: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 16,
     padding: 12,
-    marginBottom: 12,
-    // elevation: 1,
-    borderLeftWidth: 4,
   },
   leftCircle: {
     width: 48,
@@ -229,7 +239,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
   },
-  // Recent Activity Cards
   recentCard: {
     flexDirection: "row",
     alignItems: "flex-start",

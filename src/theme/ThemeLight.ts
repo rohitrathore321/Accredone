@@ -2,7 +2,7 @@ import {MD3LightTheme as DefaultTheme} from 'react-native-paper';
 import {appColorsCode} from '../styles/appColorsCode';
 
 export const themeLight = {
-  ...DefaultTheme,
+  // ...DefaultTheme,
   // @ts-ignore
   colors: {
     primary: appColorsCode.primary,
@@ -21,9 +21,9 @@ export const themeLight = {
     onError: appColorsCode.primary,
     errorContainer: appColorsCode.primary,
     onErrorContainer: appColorsCode.primary,
-    background: appColorsCode.primary,
-    onBackground: appColorsCode.primary,
-    surface: appColorsCode.primary,
+    background: appColorsCode.background,
+    onBackground: appColorsCode.background,
+    surface: appColorsCode.white,
     onSurface: appColorsCode.primary,
     surfaceVariant: appColorsCode.primary,
     onSurfaceVariant: appColorsCode.primary,
@@ -45,5 +45,6 @@ export const themeLight = {
     surfaceDisabled: appColorsCode.primary,
     onSurfaceDisabled: appColorsCode.primary,
     backdrop: appColorsCode.primary,
+    text: appColorsCode.black,
   }
 };

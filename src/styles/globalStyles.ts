@@ -45,6 +45,10 @@ const globalStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  justifyCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default globalStyles;

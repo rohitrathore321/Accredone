@@ -1,10 +1,10 @@
 // export let API_URL =  'https://qa-services.solzit.com/api-gateway/api/'; //QA
-export let API_URL = 'https://dev-services.solzit.com/api-gateway/api/'; //dev
+export let API_URL = 'https://accredoneapi-dev.azurewebsites.net/'; //dev
 export let VersionCode = '1.0.8'; //QA
 
 export const API_PATH = () => ({
   apis: {
-    GenerateOpt: 'GenerateOpt',
+    login: '/api/Auth/Authenticate',
     VerifyOtp: 'VerifyMobileAppOtp',
     GetActiveLoans: 'GetLoanListByMobileNo',
     // GetClientGeneralDetails:'LMSGetClientGeneralDetails',

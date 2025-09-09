@@ -6,38 +6,18 @@ export const authService = createApi({
   reducerPath: 'logInService',
   baseQuery: axiosBaseQuery({baseUrl: API_URL}),
   endpoints: builder => ({
-    GenerateOTP: builder.mutation({
-      query: credentials => ({
-        url: `${API_PATH().apis.GenerateOpt}?mobileNo=${credentials}`,
-        method: 'POST',
-        headers: {
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }),
-    }),
-    VerifyOTP: builder.mutation({
-      query: credentials => ({
-        url: `${API_PATH().apis.VerifyOtp}?mobileNo=${
-          credentials.MobileNumber
-        }&otp=${credentials.otpString}`,
-        method: 'POST',
-        headers: {
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }),
-    }),
 
-    GetApplicantById: builder.query({
-      query: ({accessToken, applicantId}) => ({
-        url: `${API_PATH().apis.GetApplicantById}?applicantId=${applicantId}`,
-        method: 'GET',
+    login: builder.mutation({
+      query: credentials => ({
+        url: `${API_PATH().apis.login}`,
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
+        data: credentials,
       }),
     }),
   }),
 });
 
-export const {useGenerateOTPMutation, useVerifyOTPMutation} = authService;
+export const {useLoginMutation} = authService;

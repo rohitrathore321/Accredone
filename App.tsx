@@ -1,18 +1,4 @@
-// import { StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
-
-// const App = () => {
-//   return (
-//     <View>
-//       <Text>App</Text>
-//     </View>
-//   )
-// }
-
-// export default App
-
-// const styles = StyleSheet.create({})
-
+import './src/language/i18next';
 import React, { useState } from 'react';
 import { createNavigationContainerRef } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,6 +9,7 @@ import AppTheme from './src/theme/appTheme';
 import { enableFreeze } from 'react-native-screens';
 import { appColorsCode } from './src/styles/appColorsCode';
 import { persistor, store } from './src/appstore/store/store';
+import { useAppTheme } from './src/hooks/colorTheme';
 
 export const navigationRef = createNavigationContainerRef();
 
