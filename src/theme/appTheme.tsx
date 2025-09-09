@@ -21,6 +21,7 @@ const AppTheme = ({ setState, setIsDark }: any) => {
   const colorScheme = useColorScheme();
   const isDark = useSelector((state: any) => state.app.isDark);
   
+  const colors = useAppTheme();
   useEffect(() => {
     dispatch(setTheme(colorScheme === 'dark'));
     setIsDark(colorScheme === 'dark');

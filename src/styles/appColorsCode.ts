@@ -20,7 +20,7 @@ export const appColorsCode = {
   yellow: '#f6a020',
   blue: '#1da1f2',
   mutedBlue: '#3b5998',
-  green: '##00c14b',
+  green: '#00c14b',
   background: '#f7f7f7',
   orange: '#f49e0b',
   purple: '#a63cfe',

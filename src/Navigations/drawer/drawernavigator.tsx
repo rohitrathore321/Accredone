@@ -2,10 +2,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Notificationscreen from '../../screens/notification/notificationscreen';
-
 import { appColorsCode } from '../../styles/appColorsCode';
 import CustomDrawer from './customDrawer';
 import HomeScreen from '../../screens/home/homescreen';
+
 
 
 const Drawer = createDrawerNavigator();

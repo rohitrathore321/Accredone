@@ -10,6 +10,7 @@ import {
 import { IconButton } from 'react-native-paper';
 import { appColorsCode } from '../styles/appColorsCode';
 
+
 const { width } = Dimensions.get('window');
 
 interface CustomHeaderProps {
