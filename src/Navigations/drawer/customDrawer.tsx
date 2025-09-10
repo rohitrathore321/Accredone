@@ -73,7 +73,7 @@ export default function CustomDrawer(props: any) {
                         )}
                         titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
                         style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
-                        onPressIn={() => navigation.navigate('Worklog')}
+                        onPressIn={() => navigation.navigate('AssessmentDetail')}
                         onPress={() => props.navigation.closeDrawer()}
                     />
                     <List.Item
@@ -83,7 +83,7 @@ export default function CustomDrawer(props: any) {
                         )}
                         titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
                         style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
-                        onPressIn={() => navigation.navigate('Worklog')}
+                        onPressIn={() => navigation.navigate('AssessmentPlanning')}
                         onPress={() => props.navigation.closeDrawer()}
                     />
                     <List.Item
@@ -93,7 +93,7 @@ export default function CustomDrawer(props: any) {
                         )}
                         titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
                         style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
-                        onPressIn={() => navigation.navigate('Worklog')}
+                        onPressIn={() => navigation.navigate('ResourceAssessments')}
                         onPress={() => props.navigation.closeDrawer()}
                     />
                 </List.Accordion>

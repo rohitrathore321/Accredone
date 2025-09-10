@@ -1,16 +1,14 @@
 import React, { useMemo } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList, Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { Icon, IconButton } from "react-native-paper";
 import { LineChart } from "react-native-gifted-charts";
-
 import Carousel from "react-native-reanimated-carousel";
 import { ScrollView } from "react-native-gesture-handler";
-import CircleChart from "../CircleChart";
-import Upcoming from "../Upcoming";
 import CustomHeader from "../../components/customheader";
-import { appColorsCode } from "../../styles/appColorsCode";
 import { useAppTheme } from "../../hooks/colorTheme";
+import CircleChart from "./CircleChart";
+import Upcoming from "./Upcoming";
+
 
 
 const { width } = Dimensions.get("window");
@@ -108,6 +106,8 @@ const HomeScreen = ({ navigation }: any) => {
         title='Home'
         showBackIcon={false}
         onPress={() => navigation.openDrawer()}
+         showNotification={true}  
+        showProfile={true}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -116,7 +116,8 @@ const HomeScreen = ({ navigation }: any) => {
         <View style={{ marginVertical: 12 ,marginHorizontal:16}}>
           <Text style={styles.welcome}>{'Welcome to AccredApp'}</Text>
           <Text style={styles.subtitle}>{'Your reviewing and assessments dashboard'}</Text>
-        </View>
+          {/* Graph Section */}
+      </View>
 
         <View style={styles.topRow}>
           <Carousel
@@ -155,7 +156,7 @@ const HomeScreen = ({ navigation }: any) => {
             thickness={3}
           />
         </View>
-        <Upcoming />
+        <Upcoming navigation={navigation}/>
       </ScrollView>
     </View>
   );
@@ -172,12 +173,13 @@ const getStyles = (theme: any) => {
     welcome: {
       fontSize: 20,
       fontWeight: "700",
-      color: "#222",
+      fontFamily:'Poppins-Bold',
+      color: theme.text,
       marginHorizontal: 3,
     },
     subtitle: {
       fontSize: 14,
-      color: "#666",
+      color: theme.text,
       marginTop: 2,
       marginHorizontal: 3,
     },
@@ -239,4 +241,5 @@ const getStyles = (theme: any) => {
     },
   });
 };
+
 

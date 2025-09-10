@@ -36,12 +36,16 @@ interface CustomHeaderProps {
   marginRight?: number;
   divider?: boolean;
   showLogo?: boolean;
+  showNotification:boolean;
+  showProfile:boolean;
 }
 
 const CustomHeader: React.FC<CustomHeaderProps> = ({
   showBackIcon = true,
   onPress,
   title = '',
+  showNotification = true,
+  showProfile = true,
 }) => {
   return (
     <View style={styles.container}>
@@ -52,7 +56,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
           accessibilityLabel="Back"
           iconColor={appColorsCode.black}
           onPress={onPress}
-          style={{ marginTop: 8 }}
+          style={{marginTop: 8}}
         />
       ) : (
         <IconButton
@@ -63,20 +67,23 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
           onPress={onPress}
         />
       )}
-
       <Text style={styles.title}>{title}</Text>
 
-      <IconButton
-        icon="bell-outline"
-        size={26}
-        iconColor={appColorsCode.black}
-        style={styles.iconBtn}
-      />
+      {showNotification && (
+        <IconButton
+          icon="bell-outline"
+          size={26}
+          iconColor={appColorsCode.black}
+          style={styles.iconBtn}
+        />
+      )}
 
-      <Image
-        source={{ uri: 'https://i.pravatar.cc/100?img=47' }}
-        style={styles.profileImg}
-      />
+      {showProfile && (
+        <Image
+          source={{uri: 'https://i.pravatar.cc/100?img=47'}}
+          style={styles.profileImg}
+        />
+      )}
     </View>
   );
 };

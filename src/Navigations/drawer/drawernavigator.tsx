@@ -6,6 +6,8 @@ import { appColorsCode } from '../../styles/appColorsCode';
 import CustomDrawer from './customDrawer';
 import HomeScreen from '../../screens/home/homescreen';
 
+import MyCase from '../../screens/mycases/MyCase';
+import Assessments from '../../screens/assesments/Assessments';
 
 
 const Drawer = createDrawerNavigator();
@@ -21,8 +23,11 @@ const Drawernavigator = () => {
       drawerContent={(props) => <CustomDrawer {...props}/>}
     >    
       <Drawer.Screen name="Home" component={HomeScreen} />
-      {/* <Drawer.Screen name="Notificationscreen" component={Notificationscreen} /> */}
-    </Drawer.Navigator>
+       <Drawer.Screen name="Assessments" component={Assessments} options={{headerShown:false}} />
+          <Drawer.Screen name="MyCase" component={MyCase} options={{headerShown:false}} />
+          <Drawer.Screen name="Notificationscreen" component={Notificationscreen} options={{headerShown:false}} />          
+      </Drawer.Navigator>
+         
   )
 }
 

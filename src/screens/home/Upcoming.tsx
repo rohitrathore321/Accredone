@@ -84,11 +84,13 @@ const recentData = [
   },
 ];
 
-const Upcoming = () => {
+const Upcoming = ({navigation}:any) => {
   const [showAll, setShowAll] = useState(false);
 
+
   const renderUpcomingCard = useCallback(({ item }: any) => (
-    <Card style={[styles.card, { borderLeftColor: item.priorityColor }]}>
+    <Card style={[styles.card, { borderLeftColor: item.priorityColor }]}
+    onPress={()=>navigation.navigate('AssessmentDetail')}>
       <Card.Content style={styles.cardContent}>
         <View style={styles.leftCircle}>
           <Text style={styles.shortText}>{item.short}</Text>
@@ -132,8 +134,12 @@ const Upcoming = () => {
     <>
       <View style={styles.header}>
         <Text style={styles.heading}>Upcoming Assessments</Text>
-        <TouchableOpacity onPress={() => setShowAll((prev) => !prev)}>
+        <TouchableOpacity 
+        // onPress={() => setShowAll((prev) => !prev)}
+        onPress={() => navigation.navigate('Assessments')}
+        >
           <Text style={styles.viewAll}>{showAll ? "Show Less" : "View All"}</Text>
+
         </TouchableOpacity>
       </View>
 

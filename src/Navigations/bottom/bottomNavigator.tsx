@@ -3,8 +3,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-paper';
 import HomeScreen from '../../screens/home/homescreen';
-import MyCase from '../../screens/MyCase';
-import Assesments from '../../screens/assesments/Assesments';
+import MyCase from '../../screens/mycases/MyCase';
+import Assesments from '../../screens/assesments/Assessments';
 
 
 
