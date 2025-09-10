@@ -38,65 +38,7 @@ export default function CustomDrawer(props: any) {
 
 
     return (
-        <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 ,backgroundColor: appColorsCode.white}}>
-
-                <Pressable
-                    android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
-                    // onPressIn={() => navigation.navigate('Dashboard')}
-                    onPress={() => props.navigation.closeDrawer()}
-                    style={styles.drawerBtn}>
-                    <Icon source="book-open-page-variant" color={appColorsCode.black} size={23} />
-                <Text style={styles.drawerBtnTxt}>Dashboard</Text>
-                </Pressable>
-
-            
-                <List.Accordion
-                    style={{
-                        backgroundColor: appColorsCode.white,
-                    }}
-                    title="My Assessements"
-                    titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
-                    left={p => <List.Icon {...p} icon="folder" color={appColorsCode.black} />}
-                    right={p => (
-                        <List.Icon
-                            {...p}
-                            icon={expandedId === 'work' ? 'chevron-down' : 'chevron-left'}
-                            color={appColorsCode.black}
-                        />
-                    )}
-                    expanded={expandedId === 'work'}
-                    onPress={() => handlePress('work')}>
-                    <List.Item
-                        title="Assessment Details"
-                        left={p => (
-                            <List.Icon {...p} icon="plus-box-multiple" color={appColorsCode.black} />
-                        )}
-                        titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
-                        style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
-                        onPressIn={() => navigation.navigate('AssessmentDetail')}
-                        onPress={() => props.navigation.closeDrawer()}
-                    />
-                    <List.Item
-                        title="Assessment Planning"
-                        left={p => (
-                            <List.Icon {...p} icon="plus-box-multiple" color={appColorsCode.black} />
-                        )}
-                        titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
-                        style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
-                        onPressIn={() => navigation.navigate('AssessmentPlanning')}
-                        onPress={() => props.navigation.closeDrawer()}
-                    />
-                    <List.Item
-                        title="Resource Assessment"
-                        left={p => (
-                            <List.Icon {...p} icon="plus-box-multiple" color={appColorsCode.black} />
-                        )}
-                        titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
-                        style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
-                        onPressIn={() => navigation.navigate('ResourceAssessments')}
-                        onPress={() => props.navigation.closeDrawer()}
-                    />
-                </List.Accordion>
+        <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1, backgroundColor: appColorsCode.white }}>
 
             <Pressable
                 android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
@@ -104,9 +46,70 @@ export default function CustomDrawer(props: any) {
                 onPress={() => props.navigation.closeDrawer()}
                 style={styles.drawerBtn}>
                 <Icon source="book-open-page-variant" color={appColorsCode.black} size={23} />
-                <Text style={styles.drawerBtnTxt}>My Cases</Text>
+                <Text style={styles.drawerBtnTxt}>Dashboard</Text>
             </Pressable>
 
+
+            <List.Accordion
+                style={{
+                    backgroundColor: appColorsCode.white,
+                }}
+                title="My Assessements"
+                titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
+                left={p => <List.Icon {...p} icon="folder" color={appColorsCode.black} />}
+                right={p => (
+                    <List.Icon
+                        {...p}
+                        icon={expandedId === 'work' ? 'chevron-down' : 'chevron-left'}
+                        color={appColorsCode.black}
+                    />
+                )}
+                expanded={expandedId === 'work'}
+                onPress={() => handlePress('work')}>
+                <List.Item
+                    title="Assessment Details"
+                    left={p => (
+                        <List.Icon {...p} icon="plus-box-multiple" color={appColorsCode.black} />
+                    )}
+                    titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
+                    style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
+                    //@ts-ignore
+                    onPressIn={() => navigation.navigate('AssessmentDetail')}
+                    onPress={() => props.navigation.closeDrawer()}
+                />
+                <List.Item
+                    title="Assessment Planning"
+                    left={p => (
+                        <List.Icon {...p} icon="plus-box-multiple" color={appColorsCode.black} />
+                    )}
+                    titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
+                    style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
+                    //@ts-ignore
+                    onPressIn={() => navigation.navigate('AssessmentPlanning')}
+                    onPress={() => props.navigation.closeDrawer()}
+                />
+                <List.Item
+                    title="Resource Assessment"
+                    left={p => (
+                        <List.Icon {...p} icon="plus-box-multiple" color={appColorsCode.black} />
+                    )}
+                    titleStyle={{ color: appColorsCode.black, fontFamily: 'Lato-Semibold' }}
+                    style={{ marginLeft: 20, backgroundColor: appColorsCode.white, }}
+                    //@ts-ignore
+                    onPressIn={() => navigation.navigate('ResourceAssessments')}
+                    onPress={() => props.navigation.closeDrawer()}
+                />
+            </List.Accordion>
+
+            <Pressable
+                android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+                //@ts-ignore
+                onPressIn={() => navigation.navigate('MyCases')}
+                onPress={() => props.navigation.closeDrawer()}
+                style={styles.drawerBtn}>
+                <Icon source="book-open-page-variant" color={appColorsCode.black} size={23} />
+                <Text style={styles.drawerBtnTxt}>My Cases</Text>
+            </Pressable>
         </DrawerContentScrollView>
     );
 }

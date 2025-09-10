@@ -1,5 +1,5 @@
 import {MD3DarkTheme as DefaultTheme} from 'react-native-paper';
-import {appColorsCode} from "../styles/appColorsCode";
+import {appColorsCode} from '../styles/appColorsCode';
 
 export const themeDark = {
   // ...DefaultTheme,
@@ -29,7 +29,7 @@ export const themeDark = {
     onSurfaceVariant: appColorsCode.primary,
     outline: appColorsCode.primary,
     outlineVariant: appColorsCode.primary,
-    shadow: appColorsCode.black,
+    shadow: appColorsCode.white,
     scrim: appColorsCode.primary,
     inverseSurface: appColorsCode.primary,
     inverseOnSurface: appColorsCode.primary,
@@ -46,5 +46,6 @@ export const themeDark = {
     onSurfaceDisabled: appColorsCode.primary,
     backdrop: appColorsCode.primary,
     text: appColorsCode.white,
-  }
+    card: appColorsCode.gray3,
+  },
 };

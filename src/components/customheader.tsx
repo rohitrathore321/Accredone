@@ -17,35 +17,20 @@ interface CustomHeaderProps {
   showBackIcon?: boolean;
   onPress?: () => void;
   title?: string;
-  titleImage?: ImageSourcePropType;
-  searchOnPress?: () => void;
-  onSearchChange?: (text: string) => void;
-  searchValue?: string;
-  showSearch?: boolean;
+  showProfile: boolean;
   showRightIcon?: boolean;
-  rightIconPress?: () => void;
   rightIconName?: string;
-  showRightIcon2?: boolean;
-  rightIconPress2?: () => void;
-  rightIconName2?: string;
-  showFilterIcon?: boolean;
-  filterOnPress?: () => void;
-  showallocation?: boolean;
-  total?: number;
-  color?: string;
-  marginRight?: number;
-  divider?: boolean;
-  showLogo?: boolean;
-  showNotification:boolean;
-  showProfile:boolean;
+  rightIconOnpress?: () => void;
 }
 
 const CustomHeader: React.FC<CustomHeaderProps> = ({
   showBackIcon = true,
   onPress,
   title = '',
-  showNotification = true,
-  showProfile = true,
+  showRightIcon = false,
+  showProfile = false,
+  rightIconName = '',
+  rightIconOnpress,
 }) => {
   return (
     <View style={styles.container}>
@@ -56,7 +41,6 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
           accessibilityLabel="Back"
           iconColor={appColorsCode.black}
           onPress={onPress}
-          style={{marginTop: 8}}
         />
       ) : (
         <IconButton
@@ -69,18 +53,18 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
       )}
       <Text style={styles.title}>{title}</Text>
 
-      {showNotification && (
+      {showRightIcon && (
         <IconButton
-          icon="bell-outline"
-          size={26}
+          icon={rightIconName}
+          size={25}
           iconColor={appColorsCode.black}
-          style={styles.iconBtn}
+          onPress={rightIconOnpress}
         />
       )}
 
       {showProfile && (
         <Image
-          source={{uri: 'https://i.pravatar.cc/100?img=47'}}
+          source={{ uri: 'https://i.pravatar.cc/100?img=47' }}
           style={styles.profileImg}
         />
       )}
@@ -97,22 +81,18 @@ const styles = StyleSheet.create({
     width: width,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    elevation:5
+    elevation: 5
   },
   title: {
     fontSize: 18,
     color: appColorsCode.black,
-    fontFamily: 'Lato-Semibold',
+    fontFamily: 'Poppins-Medium',
     flex: 1, // <-- to push right items to the end
   },
-  iconBtn: {
-    marginRight: 4,
-  },
   profileImg: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    marginRight:0
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 16
   },
 });

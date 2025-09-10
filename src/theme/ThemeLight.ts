@@ -29,7 +29,7 @@ export const themeLight = {
     onSurfaceVariant: appColorsCode.primary,
     outline: appColorsCode.primary,
     outlineVariant: appColorsCode.primary,
-    shadow: appColorsCode.primary,
+    shadow: appColorsCode.black,
     scrim: appColorsCode.primary,
     inverseSurface: appColorsCode.primary,
     inverseOnSurface: appColorsCode.primary,
@@ -46,5 +46,6 @@ export const themeLight = {
     onSurfaceDisabled: appColorsCode.primary,
     backdrop: appColorsCode.primary,
     text: appColorsCode.black,
+    card: appColorsCode.white,
   }
 };

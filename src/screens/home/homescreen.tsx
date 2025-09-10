@@ -15,12 +15,9 @@ const { width } = Dimensions.get("window");
 
 const HomeScreen = ({ navigation }: any) => {
 
-  
-    const colorTheme = useAppTheme();
-    console.log("colorTheme", colorTheme);
-    
+  const colorTheme = useAppTheme();
   const styles = getStyles(colorTheme);
-  // Dummy API-like data
+
   const cards = useMemo(
     () => [
       {
@@ -106,18 +103,20 @@ const HomeScreen = ({ navigation }: any) => {
         title='Home'
         showBackIcon={false}
         onPress={() => navigation.openDrawer()}
-         showNotification={true}  
+        showRightIcon={true}
+        rightIconName="bell-outline"
+        rightIconOnpress={() => { }}
         showProfile={true}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100}}
+        contentContainerStyle={{ paddingBottom: 100 }}
       >
-        <View style={{ marginVertical: 12 ,marginHorizontal:16}}>
+        <View style={{ marginVertical: 12, marginHorizontal: 16 }}>
           <Text style={styles.welcome}>{'Welcome to AccredApp'}</Text>
           <Text style={styles.subtitle}>{'Your reviewing and assessments dashboard'}</Text>
           {/* Graph Section */}
-      </View>
+        </View>
 
         <View style={styles.topRow}>
           <Carousel
@@ -156,7 +155,7 @@ const HomeScreen = ({ navigation }: any) => {
             thickness={3}
           />
         </View>
-        <Upcoming navigation={navigation}/>
+        <Upcoming navigation={navigation} />
       </ScrollView>
     </View>
   );
@@ -173,7 +172,7 @@ const getStyles = (theme: any) => {
     welcome: {
       fontSize: 20,
       fontWeight: "700",
-      fontFamily:'Poppins-Bold',
+      fontFamily: 'Poppins-Bold',
       color: theme.text,
       marginHorizontal: 3,
     },
