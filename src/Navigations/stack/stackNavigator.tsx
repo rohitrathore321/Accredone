@@ -12,6 +12,9 @@ import ResourceAssessments from '../../screens/assesments/resourceAssessments/Re
 import Assessments from '../../screens/assesments/Assessments';
 import MyCases from '../../screens/cab/myCases';
 import CaseDetails from '../../screens/cab/casedetails';
+import BottomNavigator from '../bottom/bottomNavigator';
+import CustomBottomTabs from '../bottom/CustomBottomTabs';
+import HomeScreen from '../../screens/home/homescreen';
 
 
 const StackNavigator = () => {
@@ -19,7 +22,8 @@ const StackNavigator = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
-      <Stack.Screen name="Home1" component={Drawernavigator} />
+      <Stack.Screen name="CustomBottomTabs " component={BottomNavigator} />
+      <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name='graphChart' component={GraphChart} />
       <Stack.Screen name='circleChart' component={CircleChart} />
       <Stack.Screen name='Assessments' component={Assessments} />

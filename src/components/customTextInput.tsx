@@ -1,101 +1,113 @@
-import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { TextInput } from 'react-native-paper';
-import { appColorsCode } from '../styles/appColorsCode';
-import { SCREEN_WIDTH } from '../styles/screen';
-import { useAppTheme } from '../hooks/colorTheme';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { Icon, IconButton, } from 'react-native-paper';
 
-const CustomTextInput = ({
+interface CustomTextInputProps {
+  label?: string;
+  placeholder?: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  autoFocus?: boolean;
+  secureTextEntry?: boolean;
+  leftIconName?: string;         // e.g., "document-text"
+  rightIconName?: string;        // e.g., "eye"
+  onPressRightIcon?: () => void; // for right icon actions
+  editable?: boolean;
+  readOnly?: boolean;
+  multiline?: boolean;
+  numberOfLines?: number;
+  keyboardType?: any;
+  containerStyle?: any;
+  inputStyle?: any;
+}
+
+const CustomTextInput: React.FC<CustomTextInputProps> = ({
   label,
+  placeholder,
   value,
   onChangeText,
   autoFocus = false,
   secureTextEntry = false,
-  leftIconName = false,
-  rightIconName = false,
-  onPress,
-  lefticon = true,
-  editable = false,
+  leftIconName,
+  rightIconName,
+  onPressRightIcon,
+  editable = true,
   readOnly = false,
-  onLayout,
   multiline = false,
-  style,
+  numberOfLines = 1,
   keyboardType = 'default',
-  contentStyle,
-  numberOfLines,
-  accessibilityLabelRight,
-  accessibilityLabelLeft
-}: any) => {
-    const colorTheme = useAppTheme();
-
+  containerStyle,
+  inputStyle,
+}) => {
   return (
-    <View>
-      <TextInput
-        mode="outlined"
-        label={label}
-        value={value}
-        autoFocus={autoFocus}
-        onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry}
-        accessibilityLabel='Custom Text Input'
-        textColor={colorTheme.text}
-        outlineColor={colorTheme.primary}
-        activeOutlineColor={colorTheme.primary}
-        placeholderTextColor={colorTheme.background}
-        editable={editable}
-        // disabled={disable}
-        readOnly={readOnly}
-        onLayout={onLayout}
-        keyboardType={keyboardType}
-        contentStyle={contentStyle}
-        numberOfLines={numberOfLines}
-        multiline={multiline}
-        outlineStyle={{
-          borderRadius: 5,
-          borderWidth: 1
-        }}
-        left={
-          lefticon ? (
-            <TextInput.Icon
-              icon={leftIconName}
-              size={25}
-              color={colorTheme.text}
-              accessibilityLabel={accessibilityLabelLeft}
-            />
-          ) : null
-        }
-        right={
-          <TextInput.Icon
+    <View style={[styles.inputGroup, containerStyle]}>
+      {label ? <Text style={styles.inputLabel}>{label}</Text> : null}
+
+      <View style={styles.inputContainer}>
+        {leftIconName ? (
+          <Icon source={leftIconName} size={18} color="#94a3b8" />
+        ) : null}
+
+        <TextInput
+          style={[styles.mobileInput, inputStyle]}
+          placeholder={placeholder}
+          placeholderTextColor={"#9ca3af"}
+          value={value}
+          onChangeText={onChangeText}
+          autoFocus={autoFocus}
+          secureTextEntry={secureTextEntry}
+          editable={editable && !readOnly}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          keyboardType={keyboardType}
+        // underlineColor="transparent"
+        // activeUnderlineColor="transparent"
+        />
+
+
+        {rightIconName ? (
+
+          <IconButton
             icon={rightIconName}
-            size={25}
-            color={colorTheme.text}
-            onPress={onPress}
-            accessibilityLabel={accessibilityLabelRight}
+            iconColor={"#94a3b8"}
+            size={20}
+            onPress={onPressRightIcon}
           />
-        }
-        style={[styles.input, style]}
-        theme={{
-          colors: {
-            primary: colorTheme.primary,
-            background: colorTheme.background,
-            outline: colorTheme.primary,
-            outlineVariant: colorTheme.primary,
-            tertiaryContainer: colorTheme.primary,
-            onSurfaceVariant: colorTheme.primary,
-          },
-        }}
-      />
+        ) : null}
+      </View>
     </View>
   );
 };
+
 export default CustomTextInput;
 
-const styles =
-  StyleSheet.create({
-    input: {
-      width: SCREEN_WIDTH - 32,
-      justifyContent: 'center',
-      alignSelf: 'center',
-      marginVertical: 8,
-    },
-  });
+const styles = StyleSheet.create({
+  inputGroup: {
+    marginBottom: 16,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#374151',
+    marginBottom: 8,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f9fafb',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    height: 48,
+  },
+  inputIcon: {
+    marginHorizontal: 8,
+  },
+  mobileInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#1e293b',
+    backgroundColor: 'transparent',
+  },
+});
