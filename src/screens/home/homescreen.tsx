@@ -1,244 +1,215 @@
-import React, { useMemo } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList, Dimensions } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import { LineChart } from "react-native-gifted-charts";
-import Carousel from "react-native-reanimated-carousel";
-import { ScrollView } from "react-native-gesture-handler";
-import CustomHeader from "../../components/customheader";
+import React from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { Card, IconButton, Divider } from "react-native-paper";
 import { useAppTheme } from "../../hooks/colorTheme";
-import CircleChart from "./CircleChart";
-import Upcoming from "./Upcoming";
+import globalStyles from "../../styles/globalStyles";
 
+const HomeScreen = ({navigation}:any) => {
+  const theme = useAppTheme();
+  const styles = getStyles(theme);
 
+  const roundIcon = (bg: string) => ({
+    backgroundColor: bg,
+    borderRadius: 50,
+    padding: 4,
+    marginBottom: 10,
+  });
 
-const { width } = Dimensions.get("window");
-
-const HomeScreen = ({ navigation }: any) => {
-
-  const colorTheme = useAppTheme();
-  const styles = getStyles(colorTheme);
-
-  const cards = useMemo(
-    () => [
-      {
-        title: "Total Assessments",
-        value: "214",
-        percentage: "+12%",
-        colors: ["rgba(33,150,243,0.9)", "rgba(33,150,243,0.7)"],
-        textColor: "white",
-        badgeBg: "rgba(33,150,243,0.85)",
-      },
-      {
-        title: "Pending Reviews",
-        value: "75",
-        percentage: "+8%",
-        colors: ["rgba(255,87,34,0.9)", "rgba(255,87,34,0.7)"],
-        textColor: "white",
-        badgeBg: "rgba(255,87,34,0.85)",
-      },
-      {
-        title: "Overdue",
-        value: "3",
-        percentage: "-2%",
-        colors: ["rgba(233,30,99,0.9)", "rgba(233,30,99,0.7)"],
-        textColor: "white",
-        badgeBg: "rgba(233,30,99,0.85)",
-      },
-      {
-        title: "Completion Rate",
-        value: "92%",
-        percentage: "+5%",
-        colors: ["rgba(76,175,80,0.9)", "rgba(76,175,80,0.7)"],
-        textColor: "white",
-        badgeBg: "rgba(76,175,80,0.85)",
-      },
-    ],
-    []
-  );
-
-  const blueLine = [
-    { value: 20, label: "Jan" },
-    { value: 45, label: "Feb" },
-    { value: 28, label: "Mar" },
-    { value: 80, label: "Apr" },
-    { value: 99, label: "May" },
-    { value: 43, label: "Jun" },
-  ];
-
-  const grayLine = [
-    { value: 15, label: "Jan" },
-    { value: 35, label: "Feb" },
-    { value: 55, label: "Mar" },
-    { value: 60, label: "Apr" },
-    { value: 85, label: "May" },
-    { value: 70, label: "Jun" },
-  ];
-
-  const renderCard = ({ item }: any) => (
-    <LinearGradient colors={item.colors} style={styles.card}>
-      <Text style={styles.cardTitle}>{item.title}</Text>
-      <Text style={styles.cardValue}>{item.value}</Text>
-      <View
-        style={[
-          styles.badge,
-          { backgroundColor: item.percentage.includes("-") ? "rgba(255,0,0,0.15)" : "rgba(0,255,0,0.15)" },
-        ]}
-      >
-        <Text
-          style={[
-            styles.cardPercentage,
-            { color: item.percentage.includes("-") ? "#ffffff" : "#ffffff" },
-          ]}
-        >
-          {item.percentage}
-        </Text>
-      </View>
-    </LinearGradient>
-
-  );
-
+  
   return (
-    <View style={styles.container}>
-      <CustomHeader
-        title='Home'
-        showBackIcon={false}
-        onPress={() => navigation.openDrawer()}
-        showRightIcon={true}
-        rightIconName="bell-outline"
-        rightIconOnpress={() => { }}
-        showProfile={true}
-      />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      >
-        <View style={{ marginVertical: 12, marginHorizontal: 16 }}>
-          <Text style={styles.welcome}>{'Welcome to AccredApp'}</Text>
-          <Text style={styles.subtitle}>{'Your reviewing and assessments dashboard'}</Text>
-          {/* Graph Section */}
-        </View>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* ===== Top Stats ===== */}
+      <View style={styles.topRow}>
+        <Card style={styles.statCard} onPress={()=>navigation.navigate('Assessments')}>
+          <View style={styles.statContent}>
+            <View style={roundIcon(theme.primary)}>
+              <IconButton icon="clipboard" size={28} iconColor="white" />
+            </View>
+            <Text style={styles.statNumber}>12</Text>
+            <Text style={styles.statLabel}>Active Assessments</Text>
+          </View>
+        </Card>
 
-        <View style={styles.topRow}>
-          <Carousel
-            loop
-            autoPlay
-            autoPlayInterval={2500}
-            width={width * 0.50}
-            height={150}
-            data={cards}
-            renderItem={({ item }: any) => renderCard({ item })}
-            style={{ borderRadius: 20, }}
-          />
-          <CircleChart />
-        </View>
+        <Card style={styles.statCard}>
+          <View style={styles.statContent}>
+            <View style={roundIcon(theme.error || "#3498db")}>
+              <IconButton icon="folder" size={28} iconColor="white" />
+            </View>
+            <Text style={styles.statNumber}>8</Text>
+            <Text style={styles.statLabel}>Open Cases</Text>
+          </View>
+        </Card>
+      </View>
 
-        <View style={styles.graphWrapper}>
-          <Text style={styles.graphTitle}>Monthly Data Comparison</Text>
-          <LineChart
-            data={blueLine}
-            data2={grayLine}
-            height={220}
-            spacing={40}
-            initialSpacing={40}
-            color1="blue"
-            color2="gray"
-            hideRules={false}
-            showVerticalLines={true}
-            yAxisColor="lightgray"
-            xAxisColor="lightgray"
-            yAxisTextStyle={{ color: 'black' }}
-            xAxisLabelTextStyle={{ color: 'black' }}
-            dataPointsHeight={6}
-            dataPointsWidth={6}
-            dataPointsColor1="blue"
-            dataPointsColor2="gray"
-            thickness={3}
-          />
+      {/* ===== Menu Section ===== */}
+      <View style={styles.menuSection}>
+        <Card style={styles.menuCard}>
+          <View style={globalStyles.centerContent}>
+            <View style={globalStyles.alignIcon}>
+               <View style={[roundIcon(theme.primary),{    marginRight: 12,}]}>
+                <IconButton icon="clipboard" size={24} iconColor="white" />
+              </View>
+              <View>
+                <Text style={styles.menuTitle}>My Assessments</Text>
+                <Text style={styles.menuSub}>View and manage tasks</Text>
+              </View>
+            </View>
+            <IconButton icon="chevron-right" size={24} iconColor={theme.text}/>
+          </View>
+        </Card>
+
+        <Card style={styles.menuCard}>
+          <View style={globalStyles.centerContent}>
+            <View style={globalStyles.alignIcon}>
+             <View style={[roundIcon(theme.primary),{    marginRight: 12,}]}>
+                <IconButton icon="briefcase" size={24} iconColor="white" />
+              </View>
+              <View>
+                <Text style={styles.menuTitle}>My Cases</Text>
+                <Text style={styles.menuSub}>Track case progress</Text>
+              </View>
+            </View>
+            <IconButton icon="chevron-right" size={24} iconColor={theme.text}/>
+          </View>
+        </Card>
+
+        <Card style={styles.menuCard}>
+          <View style={globalStyles.centerContent}>
+            <View style={globalStyles.alignIcon}>
+              <View style={[roundIcon("#2ecc71"),{    marginRight: 12,}]}>
+                <IconButton icon="headset" size={24} iconColor="white" />
+              </View>
+              <View>
+                <Text style={styles.menuTitle}>Contact Support</Text>
+                <Text style={styles.menuSub}>Get help from team</Text>
+              </View>
+            </View>
+            <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
+          </View>
+        </Card>
+      </View>
+
+      {/* ===== Recent Activity ===== */}
+      <Text style={styles.sectionHeading}>Recent Activity</Text>
+      <Card style={styles.activityCard}>
+        <View>
+          <View style={styles.activityRow}>
+            <View style={globalStyles.alignIcon}>
+              <View style={[roundIcon(theme.primary),{    marginRight: 12,}]}>
+                <IconButton icon="check-circle" size={22} iconColor="white" />
+              </View>
+              <View>
+                <Text style={styles.activityTitle}>Assessment Completed</Text>
+                <Text style={styles.activitySub}>2 hours ago</Text>
+              </View>
+            </View>
+          </View>
+          <Divider style={styles.divider}  />
+
+          <View style={styles.activityRow}>
+            <View style={globalStyles.alignIcon}>
+              <View style={[roundIcon("#f39c12"),{    marginRight: 12,}]}>
+                <IconButton icon="alert-circle" size={22} iconColor="white" />
+              </View>
+              <View>
+                <Text style={styles.activityTitle}>New Case Assigned</Text>
+                <Text style={styles.activitySub}>1 day ago</Text>
+              </View>
+            </View>
+          </View>
         </View>
-        <Upcoming navigation={navigation} />
-      </ScrollView>
-    </View>
+      </Card>
+    </ScrollView>
   );
 };
 
 export default HomeScreen;
 
-const getStyles = (theme: any) => {
-  return StyleSheet.create({
+const getStyles = (theme: any) =>
+  StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.background,
+      padding: 16,
     },
-    welcome: {
-      fontSize: 20,
-      fontWeight: "700",
-      fontFamily: 'Poppins-Bold',
-      color: theme.text,
-      marginHorizontal: 3,
-    },
-    subtitle: {
-      fontSize: 14,
-      color: theme.text,
-      marginTop: 2,
-      marginHorizontal: 3,
-    },
+    // Top Stats
     topRow: {
       flexDirection: "row",
-      marginBottom: 20,
       justifyContent: "space-between",
-      elevation: 5,
-      marginHorizontal: 16
+      marginBottom: 20,
     },
-    circleWrapper: {
+    statCard: {
       flex: 1,
+      marginHorizontal: 6,
+      borderRadius: 14,
+      elevation: 3,
+      backgroundColor: theme.card,
+    },
+    statContent: {
       alignItems: "center",
-      justifyContent: "center",
-      paddingLeft: 10,
+      paddingVertical: 20,
     },
-    card: {
-      padding: 10,
-      borderRadius: 15,
-      height: 150,
-      justifyContent: "center",
-      //  elevation: 5
+    statNumber: {
+      fontSize: 20,
+      fontFamily: "Poppins-SemiBold",
+      color: theme.text,
     },
-    cardTitle: {
-      fontSize: 14,
-      fontWeight: "600",
-      color: "#fff",
-      marginBottom: 6,
-    },
-    cardValue: {
-      fontSize: 30,
-      fontWeight: "bold",
-      color: "#fff",
-    },
-    badge: {
-      marginTop: 8,
-      borderRadius: 12,
-      paddingHorizontal: 8,
-      paddingVertical: 4,
-      alignSelf: "flex-start",
-    },
-    cardPercentage: {
+    statLabel: {
       fontSize: 13,
-      fontWeight: "600",
+      fontFamily: "Poppins-Light",
+      color: theme.text,
     },
-    graphWrapper: {
-      backgroundColor: "#fdffff",
-      borderRadius: 15,
+
+    // Menu Cards
+    menuSection: {
+      marginBottom: 20,
+    },
+    menuCard: {
+      marginBottom: 12,
+      borderRadius: 12,
+      elevation: 2,
+      backgroundColor: theme.card,
+      padding: 8,
+    },
+    menuTitle: {
+      fontSize: 15,
+      fontFamily: "Poppins-SemiBold",
+      color: theme.text,
+    },
+    menuSub: {
+      fontSize: 12,
+      fontFamily: "Poppins-Light",
+      color: theme.text,
+    },
+
+    // Recent Activity
+    sectionHeading: {
+      fontSize: 18,
+      fontFamily: "Poppins-SemiBold",
+      color: theme.text,
+      marginBottom: 12,
+    },
+    activityCard: {
+      borderRadius: 12,
+      elevation: 2,
+      backgroundColor: theme.card,
       padding: 12,
-      elevation: 5,
-      marginBottom: 10,
-      marginHorizontal: 16
     },
-    graphTitle: {
-      fontSize: 16,
-      fontWeight: "600",
-      marginBottom: 10,
-      color: "#333",
+    activityRow: {
+      paddingVertical: 10,
+    },
+    activityTitle: {
+      fontSize: 14,
+      fontFamily: "Poppins-SemiBold",
+      color: theme.text,
+    },
+    activitySub: {
+      fontSize: 12,
+      fontFamily: "Poppins-Light",
+      color: theme.text,
+    },
+    divider: {
+      marginVertical: 6,
+      color:theme.color,
     },
   });
-};
-
-
