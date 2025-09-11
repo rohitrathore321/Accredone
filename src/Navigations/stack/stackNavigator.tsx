@@ -15,6 +15,7 @@ import CaseDetails from '../../screens/cab/casedetails';
 import BottomNavigator from '../bottom/bottomNavigator';
 import CustomBottomTabs from '../bottom/CustomBottomTabs';
 import HomeScreen from '../../screens/home/homescreen';
+import FormStack from './formStack';
 
 
 const StackNavigator = () => {
@@ -34,6 +35,8 @@ const StackNavigator = () => {
       <Stack.Screen name='ResourceAssessments' component={ResourceAssessments} />
       <Stack.Screen name='MyCases' component={MyCases} />
       <Stack.Screen name="CaseDetails" component={CaseDetails} />
+       <Stack.Screen name="FormStack" component={FormStack} />
+
     </Stack.Navigator>
   )
 }

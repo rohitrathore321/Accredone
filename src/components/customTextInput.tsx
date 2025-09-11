@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Icon, IconButton, } from 'react-native-paper';
+import { useAppTheme } from '../hooks/colorTheme';
 
 interface CustomTextInputProps {
   label?: string;
@@ -19,6 +20,7 @@ interface CustomTextInputProps {
   keyboardType?: any;
   containerStyle?: any;
   inputStyle?: any;
+  customContainerStyle?: any;
 }
 
 const CustomTextInput: React.FC<CustomTextInputProps> = ({
@@ -38,20 +40,30 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   keyboardType = 'default',
   containerStyle,
   inputStyle,
+  customContainerStyle,
 }) => {
+    const theme = useAppTheme();
+    const styles = getStyles(theme);
   return (
     <View style={[styles.inputGroup, containerStyle]}>
       {label ? <Text style={styles.inputLabel}>{label}</Text> : null}
 
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, customContainerStyle]}>
         {leftIconName ? (
-          <Icon source={leftIconName} size={18} color="#94a3b8" />
+          <View
+            style={{
+              justifyContent: 'center',
+              marginRight: 8,
+              marginTop: multiline ? 14 : 0,
+            }}>
+            <Icon source={leftIconName} size={18} color="#94a3b8" />
+          </View>
         ) : null}
 
         <TextInput
           style={[styles.mobileInput, inputStyle]}
           placeholder={placeholder}
-          placeholderTextColor={"#9ca3af"}
+          placeholderTextColor={'#9ca3af'}
           value={value}
           onChangeText={onChangeText}
           autoFocus={autoFocus}
@@ -60,16 +72,14 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
           multiline={multiline}
           numberOfLines={numberOfLines}
           keyboardType={keyboardType}
-        // underlineColor="transparent"
-        // activeUnderlineColor="transparent"
+          // underlineColor="transparent"
+          // activeUnderlineColor="transparent"
         />
 
-
         {rightIconName ? (
-
           <IconButton
             icon={rightIconName}
-            iconColor={"#94a3b8"}
+            iconColor={'#94a3b8'}
             size={20}
             onPress={onPressRightIcon}
           />
@@ -81,25 +91,26 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
 
 export default CustomTextInput;
 
-const styles = StyleSheet.create({
+const getStyles = (theme: any) =>
+  StyleSheet.create({
   inputGroup: {
     marginBottom: 16,
   },
   inputLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: theme.text,
     marginBottom: 8,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f9fafb',
+    backgroundColor:theme.background,
     borderRadius: 12,
     paddingHorizontal: 16,
     borderWidth: 1,
     borderColor: '#e5e7eb',
-    height: 48,
+    // height: 48,
   },
   inputIcon: {
     marginHorizontal: 8,
@@ -107,7 +118,7 @@ const styles = StyleSheet.create({
   mobileInput: {
     flex: 1,
     fontSize: 16,
-    color: '#1e293b',
+    color: theme.text,
     backgroundColor: 'transparent',
   },
 });

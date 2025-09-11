@@ -9,7 +9,7 @@ const EntryScreen = ({ navigation }: any) => {
     const styles = getStyles(colorTheme);
   return (
     <View style={styles.container}>
-    <ScrollView  showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
       {/* Welcome Card */}
       <Card style={styles.welcomeCard}>
         <Card.Content>
@@ -34,7 +34,7 @@ const EntryScreen = ({ navigation }: any) => {
               mode="outlined"
               style={styles.contactButton}
               icon="phone"
-              onPress={() => console.log("Contact Us")}
+              onPress={() => navigation.navigate('FormStack', { screen: 'ContactUs' })}
             >
               Contact Us
             </Button>

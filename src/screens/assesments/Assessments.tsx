@@ -1,125 +1,151 @@
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Card, Icon, IconButton } from "react-native-paper";
 import CustomHeader from "../../components/customheader";
+import { useAppTheme } from "../../hooks/colorTheme";
+import CustomTextInput from "../../components/customTextInput";
 
 const Assessments = ({navigation}:any) => {
+  const theme = useAppTheme();
+  const styles = getStyles(theme);
+    const [search, setSearch] = useState("");
+    
   const data = [
-    {
-      id: "1",
-      cardCode: "TA-001",
-      company: "Allied Services",
-      title: "Report Reviewer - ISO 9001",
-      subheading:
-        "Quality management system review for service organization with international operations.",
-      date: "Nov 27, 2024",
-      location: "Stockholm, Sweden",
-      time: "2 days",
-      status: "Active",
-      priority: "Medium",
-      isoCode: "ISO 9001",
-      short: "AS",
-    },
-    {
-      id: "2",
-      cardCode: "2024-145",
-      company: "Baltic Industries",
-      title: "Technical Expert - ISO 14001",
-      subheading:
-        "Environmental management system assessment for renewable energy sector.",
-      date: "Aug 25, 2024",
-      location: "Riga, Latvia",
-      time: "5 days",
-      status: "Completed",
-      priority: "Low",
-      isoCode: "ISO 14001",
-      short: "BI",
-    },
-    {
-      id: "3",
-      cardCode: "2024-144",
-      company: "Mediterranean Co",
-      title: "Observer - ISO 9001",
-      subheading:
-        "Quality management system observation for automotive manufacturing.",
-      date: "Jul 18, 2024",
-      location: "Rome, Italy",
-      time: "3 days",
-      status: "Active",
-      priority: "High",
-      isoCode: "ISO 9001",
-      short: "MC",
-    },
-  ];
+  {
+    id: "1",
+    title: "ISO 14001 Assessment",
+    status: "Active",
+    assessmentId: "TAS-001",
+    role: "Lead Assessor",
+    client: "Manufacturing Corp",
+    location: "Oslo, Norway",
+    date: "2024-11-27",
+    duration: "3 days",
+    priority: "High Priority",
+    icon: "leaf",
+  },
+  {
+    id: "2",
+    title: "ISO 14001 Assessment",
+    status: "Active",
+    assessmentId: "TAS-002",
+    role: "Lead Assessor",
+    client: "Manufacturing Corp",
+    location: "Oslo, Norway",
+    date: "2024-11-27",
+    duration: "3 days",
+    priority: "Medium Priority",
+    icon: "leaf",
+  },
+  {
+    id: "3",
+    title: "ISO 14001 Assessment",
+    status: "Active",
+    assessmentId: "TAS-003",
+    role: "Lead Assessor",
+    client: "Manufacturing Corp",
+    location: "Oslo, Norway",
+    date: "2024-11-27",
+    duration: "3 days",
+    priority: "Low Priority",
+    icon: "leaf",
+  },
+];
 
   const summaryCards = [
     {
       id: "c1",
-      title: "Completed",
+      title: "Active",
       value: "3",
-      icon: "check-circle",
-      color: "#16a34a",
+     
     },
     {
       id: "c2",
       title: "Pending",
       value: "2",
-      icon: "clock-outline",
-      color: "#f59e0b",
+    
     },
     {
       id: "c3",
-      title: "Active Assessments",
+      title: "Completed",
       value: "5",
-      icon: "clipboard-list",
-      color: "#2563eb",
+     
     },
   ];
 
-  const renderItem = ({ item }: any) => (
-    <Card style={styles.card} onPress={()=>navigation.navigate('AssessmentDetail')}>
-      <View style={styles.row}>
-        {/* Circle with Short Code */}
-        <Avatar.Text size={48} label={item.short} style={styles.avatar} />
+ const getPriorityStyle = (priority: string) => {
+    if (priority.includes("High")) {
+      return { bg: "rgba(220,38,38,0.1)", color: "#dc2626" }; // red
+    } else if (priority.includes("Medium")) {
+      return { bg: "rgba(245,158,11,0.1)", color: "#d97706" }; // amber
+    } else {
+      return { bg: "rgba(22,163,74,0.1)", color: "#16a34a" }; // green
+    }
+  };
 
-        {/* Card Info */}
-        <View style={styles.info}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.company}>{item.company}</Text>
-          <Text style={styles.subheading}>{item.subheading}</Text>
+const renderItem = ({ item }: any) => {
+    const priorityStyle = getPriorityStyle(item.priority);
 
-          {/* Date + Location + Time */}
-          <View style={styles.metaRow}>
-            <IconButton icon="calendar" size={18} iconColor="#374151" />
-            <Text style={styles.meta}>{item.date}</Text>
-          </View>
-          <View style={styles.metaRow}>
-            <IconButton icon="map-marker" size={18} iconColor="#374151" />
-            <Text style={styles.meta}>{item.location}</Text>
-          </View>
-          <View style={styles.metaRow}>
-            <IconButton icon="clock-outline" size={18} iconColor="#374151" />
-            <Text style={styles.meta}>{item.time}</Text>
+    return (
+      <Card
+        style={styles.card}
+        onPress={() => navigation.navigate("AssessmentDetail")}
+      >
+        <View style={styles.row}>
+          {/* Left icon */}
+          <View style={styles.iconWrapper}>
+            <Icon source={item.icon} size={28} color="#2563eb" />
           </View>
 
-          {/* Status + Priority + ISO */}
-          <View style={styles.tagRow}>
-            <View style={[styles.tag, { backgroundColor: "#d1fae5" }]}>
-              <Text style={styles.tagText}>{item.status}</Text>
+          <View style={{ flex: 1 }}>
+            {/* Title row */}
+            <View style={styles.rowBetween}>
+              <Text style={styles.title}>{item.title}</Text>
+              <View style={styles.statusBadge}>
+                <Text style={styles.statusText}>{item.status}</Text>
+              </View>
             </View>
 
-            <View style={[styles.tag, { backgroundColor: "#fee2e2" }]}>
-              <Text style={styles.tagText}>{item.priority}</Text>
+            {/* Assessment ID + Role */}
+            <View style={styles.rowBetween}>
+              <Text style={styles.metaLeft}>
+                {item.assessmentId} · {item.role}
+              </Text>
+              <Icon source="chevron-right" size={20} color="#6b7280" />
             </View>
 
-            <View style={[styles.tag, { backgroundColor: "#e0f2fe" }]}>
-              <Text style={styles.tagText}>{item.isoCode}</Text>
+            {/* Client + Location + Date */}
+            <View style={styles.rowBetween}>
+              <Text style={styles.metaLeft}>
+                {item.client} · {item.location}
+              </Text>
+              <Text style={styles.metaRight}>{item.date}</Text>
+            </View>
+
+            {/* Priority + Duration */}
+            <View style={styles.rowBetween}>
+              <View
+                style={[
+                  styles.priorityBadge,
+                  { backgroundColor: priorityStyle.bg },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.priorityText,
+                    { color: priorityStyle.color },
+                  ]}
+                >
+                  {item.priority}
+                </Text>
+              </View>
+              <Text style={styles.metaRight}>{item.duration}</Text>
             </View>
           </View>
         </View>
-      </View>
-    </Card>
-  );
+      </Card>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -127,37 +153,23 @@ const Assessments = ({navigation}:any) => {
         showBackIcon={true}
         onPress={() => navigation.goBack()}
         title="My Assessments"
-         showNotification={false}  
+       showRightIcon={true}  
+       rightIconName ="plus"
         showProfile={false}
       />
-      {/* <Text style={styles.heading}>My Assessments</Text> */}
-      <Text style={styles.subheadingText}>
-        Manage your assessment assignments and progress
-      </Text>
-
-      {/* Search */}
-      <View style={styles.searchRow}>
-        <TextInput
-          style={styles.searchInput}
+     
+      {/* Summary */}
+     <View style={styles.searchRow}>
+        <CustomTextInput
           placeholder="Search assessments..."
-          placeholderTextColor={"gray"}
+          value={search}
+          onChangeText={setSearch}
+          leftIconName="magnify"
+          containerStyle={{ flex: 1, marginRight: 10 }}
         />
         <TouchableOpacity style={styles.searchBtn}>
-          <Icon source="filter" size={25} color="#000000" />
+          <Icon source="filter-variant" size={25} color={theme.primary} />
         </TouchableOpacity>
-      </View>
-
-      {/* Summary */}
-      <View style={styles.summaryRow}>
-        {summaryCards.map((s: any) => (
-          <Card key={s.id} style={styles.summaryCard}>
-            <View style={styles.summaryContent}>
-              <IconButton icon={s.icon} iconColor={s.color} size={25} />
-              <Text style={styles.summaryValue}>{s.value}</Text>
-              <Text style={styles.summaryTitle}>{s.title}</Text>
-            </View>
-          </Card>
-        ))}
       </View>
 
       {/* Assessments List */}
@@ -173,36 +185,23 @@ const Assessments = ({navigation}:any) => {
 
 export default Assessments;
 
-const styles = StyleSheet.create({
+const getStyles = (theme: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f6fa',
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 4,
-    marginHorizontal: 16,
-  },
-  subheadingText: {
-    color: 'gray',
-    marginBottom: 8,
-    marginHorizontal: 16,
-    marginTop:3,
   },
   searchRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 16,
-    marginBottom: 16,
+    marginTop:16,
   },
   searchInput: {
     flexGrow: 1,
     borderWidth: 1,
     borderColor: '#a8a5a5',
     borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
     backgroundColor: '#fff',
     marginRight: 9,
   },
@@ -210,9 +209,11 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: '#f5f6fa',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    elevation:3,
+    marginTop:-16,
     // elevation:1,
   },
 
@@ -224,10 +225,10 @@ const styles = StyleSheet.create({
   },
   summaryCard: {
     width: 110,
-    height: 120,
+    height: 60,
     borderRadius: 12,
     backgroundColor: '#fff',
-    elevation: 2,
+    elevation: 3,
     padding: 8,
   },
   summaryContent: {
@@ -243,18 +244,6 @@ const styles = StyleSheet.create({
     color: '#4b5563',
     textAlign: 'center',
     marginTop: 2,
-  },
-  card: {
-    marginBottom: 16,
-    borderRadius: 12,
-    padding: 12,
-    elevation: 3,
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
   },
   avatar: {
     backgroundColor: '#2563eb',
@@ -302,4 +291,64 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
   },
+  card: {
+  marginBottom: 16,
+  borderRadius: 12,
+  padding: 12,
+  elevation: 3,
+  backgroundColor: "#fff",
+  marginHorizontal: 16,
+},
+row: {
+  flexDirection: "row",
+  alignItems: "flex-start",
+},
+rowBetween: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginTop: 6,
+},
+iconWrapper: {
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  backgroundColor: "#e0f2fe",
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 12,
+ alignSelf:'center',
+},
+
+statusBadge: {
+  paddingHorizontal: 8,
+  paddingVertical: 3,
+  borderRadius: 12,
+  backgroundColor: "rgba(37, 99, 235, 0.1)", // transparent
+},
+statusText: {
+  fontSize: 12,
+  color: "#2563eb",
+  fontWeight: "500",
+},
+priorityBadge: {
+  paddingHorizontal: 8,
+  paddingVertical: 3,
+  borderRadius: 12,
+  backgroundColor: "rgba(220, 38, 38, 0.1)", // transparent red
+},
+priorityText: {
+  fontSize: 12,
+  fontWeight: "500",
+},
+metaLeft: {
+  fontSize: 13,
+  color: "#374151",
+  flexShrink: 1,
+},
+metaRight: {
+  fontSize: 13,
+  color: "#6b7280",
+},
+
 });
