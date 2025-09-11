@@ -13,7 +13,7 @@ const AssessmentDetail = ({ navigation }: any) => {
         showBackIcon={true}
         onPress={() => navigation.goBack()}
         title="Assessment Detail"
-        showNotification={false}  
+        showRightIcon={false}  
         showProfile={false}   
       />
 

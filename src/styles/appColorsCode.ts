@@ -1,5 +1,5 @@
 export const appColorsCode = {
-  primary: '#2079fa',
+  primary: '#3b82f6',
   secondary: '#537de0',
   accent: '#af292e',
   tertiary: '#a2a5a4',

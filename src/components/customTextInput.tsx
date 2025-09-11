@@ -109,8 +109,10 @@ const getStyles = (theme: any) =>
     borderRadius: 12,
     paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    // borderColor: '#e5e7eb',
     // height: 48,
+    borderColor: '#f9fafb',
+    height: 48,
   },
   inputIcon: {
     marginHorizontal: 8,

@@ -3,123 +3,92 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Card, IconButton, Divider } from "react-native-paper";
 import { useAppTheme } from "../../hooks/colorTheme";
 import globalStyles from "../../styles/globalStyles";
+import CustomHeader from "../../components/customheader";
+import CustomIconButton from "../../components/customIconButton";
 
-const HomeScreen = ({navigation}:any) => {
+const HomeScreen = ({ navigation }: any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
 
-  const roundIcon = (bg: string) => ({
-    backgroundColor: bg,
-    borderRadius: 50,
-    padding: 4,
-    marginBottom: 10,
-  });
+  const menuItems = [
+    { title: "My Assessments", sub: "View and manage tasks", icon: "bell" },
+    { title: "My Cases", sub: "Track case progress", icon: "bell" },
+    { title: "Contact Support", sub: "Get help from team", icon: "bell" },
+  ];
 
-  
+  const activities = [
+    { title: "Assessment Completed", sub: "2 hours ago", icon: "check-circle" },
+    { title: "New Case Assigned", sub: "1 day ago", icon: "alert-circle" },
+  ];
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* ===== Top Stats ===== */}
-      <View style={styles.topRow}>
-        <Card style={styles.statCard} onPress={()=>navigation.navigate('Assessments')}>
-          <View style={styles.statContent}>
-            <View style={roundIcon(theme.primary)}>
-              <IconButton icon="clipboard" size={28} iconColor="white" />
-            </View>
-            <Text style={styles.statNumber}>12</Text>
-            <Text style={styles.statLabel}>Active Assessments</Text>
-          </View>
-        </Card>
+    <View style={styles.container}>
+      <CustomHeader
+        showBackIcon
+        onPress={() => navigation.goBack()}
+        title="My Assessments"
+        showRightIcon={false}
+        showProfile={false}
+      />
 
-        <Card style={styles.statCard}>
-          <View style={styles.statContent}>
-            <View style={roundIcon(theme.error || "#3498db")}>
-              <IconButton icon="folder" size={28} iconColor="white" />
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 2, paddingBottom: 100 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.topRow}>
+          <Card style={[styles.statCard, { marginRight: 12 }]} onPress={() => navigation.navigate("Assessments")}>
+            <View style={styles.statContent}>
+              <CustomIconButton iconName="bell" onPress={() => { }} />
+              <Text style={styles.statNumber}>12</Text>
+              <Text style={styles.statLabel}>Active Assessments</Text>
             </View>
-            <Text style={styles.statNumber}>8</Text>
-            <Text style={styles.statLabel}>Open Cases</Text>
-          </View>
-        </Card>
-      </View>
+          </Card>
 
-      {/* ===== Menu Section ===== */}
-      <View style={styles.menuSection}>
-        <Card style={styles.menuCard}>
-          <View style={globalStyles.centerContent}>
-            <View style={globalStyles.alignIcon}>
-               <View style={[roundIcon(theme.primary),{    marginRight: 12,}]}>
-                <IconButton icon="clipboard" size={24} iconColor="white" />
-              </View>
-              <View>
-                <Text style={styles.menuTitle}>My Assessments</Text>
-                <Text style={styles.menuSub}>View and manage tasks</Text>
-              </View>
+          <Card style={styles.statCard}>
+            <View style={styles.statContent}>
+              <CustomIconButton iconName="bell" onPress={() => { }} />
+              <Text style={styles.statNumber}>8</Text>
+              <Text style={styles.statLabel}>Open Cases</Text>
             </View>
-            <IconButton icon="chevron-right" size={24} iconColor={theme.text}/>
-          </View>
-        </Card>
-
-        <Card style={styles.menuCard}>
-          <View style={globalStyles.centerContent}>
-            <View style={globalStyles.alignIcon}>
-             <View style={[roundIcon(theme.primary),{    marginRight: 12,}]}>
-                <IconButton icon="briefcase" size={24} iconColor="white" />
-              </View>
-              <View>
-                <Text style={styles.menuTitle}>My Cases</Text>
-                <Text style={styles.menuSub}>Track case progress</Text>
-              </View>
-            </View>
-            <IconButton icon="chevron-right" size={24} iconColor={theme.text}/>
-          </View>
-        </Card>
-
-        <Card style={styles.menuCard}>
-          <View style={globalStyles.centerContent}>
-            <View style={globalStyles.alignIcon}>
-              <View style={[roundIcon("#2ecc71"),{    marginRight: 12,}]}>
-                <IconButton icon="headset" size={24} iconColor="white" />
-              </View>
-              <View>
-                <Text style={styles.menuTitle}>Contact Support</Text>
-                <Text style={styles.menuSub}>Get help from team</Text>
-              </View>
-            </View>
-            <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
-          </View>
-        </Card>
-      </View>
-
-      {/* ===== Recent Activity ===== */}
-      <Text style={styles.sectionHeading}>Recent Activity</Text>
-      <Card style={styles.activityCard}>
-        <View>
-          <View style={styles.activityRow}>
-            <View style={globalStyles.alignIcon}>
-              <View style={[roundIcon(theme.primary),{    marginRight: 12,}]}>
-                <IconButton icon="check-circle" size={22} iconColor="white" />
-              </View>
-              <View>
-                <Text style={styles.activityTitle}>Assessment Completed</Text>
-                <Text style={styles.activitySub}>2 hours ago</Text>
-              </View>
-            </View>
-          </View>
-          <Divider style={styles.divider}  />
-
-          <View style={styles.activityRow}>
-            <View style={globalStyles.alignIcon}>
-              <View style={[roundIcon("#f39c12"),{    marginRight: 12,}]}>
-                <IconButton icon="alert-circle" size={22} iconColor="white" />
-              </View>
-              <View>
-                <Text style={styles.activityTitle}>New Case Assigned</Text>
-                <Text style={styles.activitySub}>1 day ago</Text>
-              </View>
-            </View>
-          </View>
+          </Card>
         </View>
-      </Card>
-    </ScrollView>
+
+        <View >
+          {menuItems.map((item, index) => (
+            <Card key={index} style={styles.menuCard}>
+              <View style={globalStyles.centerContent}>
+                <View style={globalStyles.alignIcon}>
+                  <CustomIconButton iconName={item.icon} onPress={() => { }} height={60} width={60} />
+                  <View style={{ marginLeft: 12 }}>
+                    <Text style={styles.menuTitle}>{item.title}</Text>
+                    <Text style={styles.menuSub}>{item.sub}</Text>
+                  </View>
+                </View>
+                <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
+              </View>
+            </Card>
+          ))}
+        </View>
+
+        <Text style={styles.sectionHeading}>Recent Activity</Text>
+        <Card style={styles.activityCard}>
+          {activities.map((act, index) => (
+            <View key={index}>
+              <View style={styles.activityRow}>
+                <View style={globalStyles.alignIcon}>
+                  <CustomIconButton iconName={act.icon} onPress={() => { }} height={60} width={60} />
+                  <View style={{ marginLeft: 12 }}>
+                    <Text style={styles.activityTitle}>{act.title}</Text>
+                    <Text style={styles.activitySub}>{act.sub}</Text>
+                  </View>
+                </View>
+              </View>
+              {index < activities.length - 1 && <Divider style={styles.divider} />}
+            </View>
+          ))}
+        </Card>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -130,9 +99,7 @@ const getStyles = (theme: any) =>
     container: {
       flex: 1,
       backgroundColor: theme.background,
-      padding: 16,
     },
-    // Top Stats
     topRow: {
       flexDirection: "row",
       justifyContent: "space-between",
@@ -140,7 +107,6 @@ const getStyles = (theme: any) =>
     },
     statCard: {
       flex: 1,
-      marginHorizontal: 6,
       borderRadius: 14,
       elevation: 3,
       backgroundColor: theme.card,
@@ -159,11 +125,6 @@ const getStyles = (theme: any) =>
       fontFamily: "Poppins-Light",
       color: theme.text,
     },
-
-    // Menu Cards
-    menuSection: {
-      marginBottom: 20,
-    },
     menuCard: {
       marginBottom: 12,
       borderRadius: 12,
@@ -181,13 +142,11 @@ const getStyles = (theme: any) =>
       fontFamily: "Poppins-Light",
       color: theme.text,
     },
-
-    // Recent Activity
     sectionHeading: {
       fontSize: 18,
       fontFamily: "Poppins-SemiBold",
       color: theme.text,
-      marginBottom: 12,
+      marginVertical: 6,
     },
     activityCard: {
       borderRadius: 12,
@@ -210,6 +169,6 @@ const getStyles = (theme: any) =>
     },
     divider: {
       marginVertical: 6,
-      color:theme.color,
+      color: theme.color,
     },
   });

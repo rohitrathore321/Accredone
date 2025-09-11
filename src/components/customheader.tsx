@@ -36,19 +36,22 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
     <View style={styles.container}>
       {showBackIcon ? (
         <IconButton
-          icon="chevron-left"
+          icon="arrow-left"
           size={25}
           accessibilityLabel="Back"
-          iconColor={appColorsCode.black}
+          iconColor={appColorsCode.white}
           onPress={onPress}
+          style={{ marginRight: -30 }}
         />
       ) : (
         <IconButton
           icon="menu"
           size={25}
           accessibilityLabel="Menu"
-          iconColor={appColorsCode.black}
+          iconColor={appColorsCode.white}
           onPress={onPress}
+          style={{ marginRight: -30 }}
+
         />
       )}
       <Text style={styles.title}>{title}</Text>
@@ -57,7 +60,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
         <IconButton
           icon={rightIconName}
           size={25}
-          iconColor={appColorsCode.black}
+          iconColor={appColorsCode.white}
           onPress={rightIconOnpress}
         />
       )}
@@ -76,18 +79,21 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: appColorsCode.white,
+    backgroundColor: appColorsCode.primary,
     height: 60,
-    width: width,
+    // width: width,
     flexDirection: 'row',
     alignItems: 'center',
-    elevation: 5
+    elevation: 5,
+    borderRadius: 15,
+    margin: 16
   },
   title: {
     fontSize: 18,
-    color: appColorsCode.black,
+    color: appColorsCode.white,
     fontFamily: 'Poppins-Medium',
-    flex: 1, // <-- to push right items to the end
+    flex: 1,
+    textAlign: 'center'
   },
   profileImg: {
     width: 30,

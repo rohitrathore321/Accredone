@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { ActivityIndicator, Icon } from "react-native-paper";
+import { ActivityIndicator, Card, Icon } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { setAuthData, setToken } from "../../appstore/reducers/authSlice";
 import CustomTextInput from "../../components/customTextInput";
@@ -10,31 +10,25 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useLoginMutation } from "../../service/authService";
 import ToastMessage from "../../components/toastMessage";
+import CustomHeader from "../../components/customheader";
 
 const LoginScreen = ({ navigation }: any) => {
     const dispatch = useDispatch();
-    const colorTheme = useAppTheme();
-    const styles = getStyles(colorTheme);
+    const theme = useAppTheme();
+    const styles = getStyles(theme);
 
-    const [remember, setRemember] = useState(false);
-    const [showPassword, setShowPassword] = useState(false); // false = hidden initially
+    const [showPassword, setShowPassword] = useState(false);
 
     const [loginAuth, result] = useLoginMutation();
 
-    console.log(result);
     const validationSchema = Yup.object().shape({
         email: Yup.string().email("Invalid email").required("Email is required."),
         password: Yup.string().required("Password is required."),
     });
 
     const handleLogin = async (values: { email: string; password: string }) => {
-        const credentials = {
-            email: values.email,
-            password: values.password
-        }
         try {
-            const response: any = await loginAuth(credentials);
-            console.log(response);
+            const response: any = await loginAuth(values);
 
             if (response?.data) {
                 dispatch(setToken(response.data.data?.authToken?.accessToken));
@@ -43,8 +37,7 @@ const LoginScreen = ({ navigation }: any) => {
             } else {
                 ToastMessage({ type: "error", title: "Error", subtitle: "Invalid credentials" });
             }
-        } catch (err) {
-            console.log(err);
+        } catch {
             ToastMessage({ type: "error", title: "Error", subtitle: "Something went wrong" });
         }
     };
@@ -56,77 +49,77 @@ const LoginScreen = ({ navigation }: any) => {
             onSubmit={handleLogin}
         >
             {({ handleChange, handleSubmit, values, errors, submitCount }) => (
-                <View style={styles.container}>
-                    {submitCount > 0 && Object.keys(errors).length > 0 && (
-                        <View style={styles.formErrorBox}>
-                            <Text style={styles.formErrorText}>
-                                {errors[Object.keys(errors)[0] as keyof typeof errors]}
-                            </Text>
-                        </View>
-                    )}
+                <>
+                    <CustomHeader
+                        showBackIcon
+                        onPress={() => navigation.goBack()}
+                        title="Sign In"
+                        showRightIcon={false}
+                        showProfile={false}
+                    />
+                    <View style={styles.container}>
+                        <Card style={styles.formContainer}>
+                            {submitCount > 0 && Object.keys(errors).length > 0 && (
+                                <View style={styles.formErrorBox}>
+                                    <Text style={styles.formErrorText}>
+                                        {errors[Object.keys(errors)[0] as keyof typeof errors]}
+                                    </Text>
+                                </View>
+                            )}
+                            <Card.Content>
 
-                    <View style={styles.formContainer}>
-                        <CustomTextInput
-                            label="Email"
-                            placeholder="student@example.com"
-                            value={values.email}
-                            onChangeText={handleChange("email")}
-                            leftIconName="account"
-                        />
-
-                        <CustomTextInput
-                            label="Password"
-                            placeholder="••••••"
-                            value={values.password}
-                            onChangeText={handleChange("password")}
-                            leftIconName="lock"
-                            secureTextEntry={showPassword}
-                            rightIconName={showPassword ? "eye-off" : "eye"}
-                            onPressRightIcon={() => setShowPassword(!showPassword)}
-                        />
-
-                        <View style={styles.rowBetween}>
-                            <TouchableOpacity style={styles.row} onPress={() => setRemember(!remember)}>
-                                <Icon
-                                    source={remember ? "checkbox-marked" : "checkbox-blank-outline"}
-                                    size={20}
-                                    color={colorTheme.text}
+                                <CustomTextInput
+                                    label="Email"
+                                    placeholder="student@example.com"
+                                    value={values.email}
+                                    onChangeText={handleChange("email")}
+                                    leftIconName="account"
                                 />
-                                <Text style={styles.rememberText}> Remember Me</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Text style={styles.forgetText}>Forget Password?</Text>
-                            </TouchableOpacity>
-                        </View>
 
-                        <TouchableOpacity style={styles.signInButton} onPress={() => handleSubmit()}>
-                            {
-                                result?.isLoading ? (
-                                    <ActivityIndicator animating={true} color={appColorsCode.white} />
-                                )
-                                    : (
+                                <CustomTextInput
+                                    label="Password"
+                                    placeholder="••••••"
+                                    value={values.password}
+                                    onChangeText={handleChange("password")}
+                                    leftIconName="lock"
+                                    secureTextEntry={!showPassword}  // fixed logic
+                                    rightIconName={showPassword ? "eye-off" : "eye"}
+                                    onPressRightIcon={() => setShowPassword(!showPassword)}
+                                />
+
+
+
+                                {/* Sign In Button */}
+                                <TouchableOpacity style={styles.signInButton} onPress={handleSubmit}>
+                                    {result?.isLoading ? (
+                                        <ActivityIndicator animating color={appColorsCode.white} />
+                                    ) : (
                                         <Text style={styles.signInButtonText}>Sign In</Text>
-                                    )
-                            }
-                        </TouchableOpacity>
+                                    )}
+                                </TouchableOpacity>
 
-                        <View style={styles.dividerRow}>
-                            <View style={styles.line} />
-                            <Text style={styles.dividerText}>Or continue with</Text>
-                            <View style={styles.line} />
-                        </View>
+                                <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
+                                    <Text style={styles.forgetText}>Forget Password?</Text>
+                                </TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={[styles.signInButton, { flexDirection: "row", justifyContent: "center" }]}
-                            onPress={() => handleSubmit()}
-                        >
-                            <Icon source="microsoft-windows" size={20} color={appColorsCode.white} />
-                            <Text style={[styles.signInButtonText, { marginLeft: 10 }]}>
-                                Sign In With Microsoft
-                            </Text>
-                        </TouchableOpacity>
+                                {/* Divider */}
+                                <View style={styles.dividerRow}>
+                                    <View style={styles.line} />
+                                    <Text style={styles.dividerText}>OR</Text>
+                                    <View style={styles.line} />
+                                </View>
+
+                                {/* Microsoft Button */}
+                                <TouchableOpacity style={styles.signInButtonAlt} onPress={handleSubmit}>
+                                    <Icon source="microsoft-windows" size={20} color={appColorsCode.white} />
+                                    <Text style={[styles.signInButtonText, { marginLeft: 10 }]}>
+                                        Sign In With Microsoft
+                                    </Text>
+                                </TouchableOpacity>
+                            </Card.Content>
+                        </Card>
                     </View>
-                </View>
+                </>
             )}
         </Formik>
     );
@@ -138,26 +131,15 @@ const getStyles = (theme: any) =>
     StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: appColorsCode.white,
+            backgroundColor: theme.background,
+            // justifyContent: "center",
         },
         formContainer: {
-            flex: 1,
-            justifyContent: "center",
+            backgroundColor: theme.card,
+            marginHorizontal: 16,
+            borderRadius: 12,
+            paddingVertical: 20,
             paddingHorizontal: 20,
-        },
-        rowBetween: {
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 16,
-        },
-        row: {
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        rememberText: {
-            fontSize: 14,
-            color: theme.text,
         },
         forgetText: {
             fontSize: 14,
@@ -182,7 +164,8 @@ const getStyles = (theme: any) =>
         formErrorBox: {
             backgroundColor: appColorsCode.negative,
             padding: 10,
-            marginBottom: 10,
+            marginBottom: 20,
+            borderRadius: 6,
         },
         formErrorText: {
             color: appColorsCode.white,
@@ -190,11 +173,20 @@ const getStyles = (theme: any) =>
             fontWeight: "600",
         },
         signInButton: {
-            backgroundColor: "#3b82f6",
+            backgroundColor: appColorsCode.primary,
             borderRadius: 12,
             padding: 16,
             alignItems: "center",
             marginTop: 10,
+        },
+        signInButtonAlt: {
+            backgroundColor: appColorsCode.primary,
+            borderRadius: 12,
+            padding: 16,
+            alignItems: "center",
+            marginTop: 10,
+            flexDirection: "row",
+            justifyContent: "center",
         },
         signInButtonText: {
             color: "white",
