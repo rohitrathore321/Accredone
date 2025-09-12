@@ -11,9 +11,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAppTheme } from "../../hooks/colorTheme";
 import CustomTextInput from "../../components/customTextInput";
+import CustomHeader from "../../components/customheader";
 
-
-// ✅ Validation schema with Yup
 const enquirySchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
   lastName: Yup.string().required("Last name is required"),
@@ -23,46 +22,52 @@ const enquirySchema = Yup.object().shape({
   message: Yup.string().required("Message is required"),
 });
 
-const GeneralEnquiry = () => {
+const GeneralEnquiry = ({ navigation }: any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: 100 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <Card style={styles.formCard}>
-          <Card.Content>
-            <Text style={styles.title}>Send us your enquiry</Text>
-            <Text style={styles.subtitle}>
-              We'll get back to you within 24 hours
-            </Text>
+    <Formik
+      initialValues={{
+        firstName: "",
+        lastName: "",
+        email: "",
+        organization: "",
+        topic: "",
+        message: "",
+      }}
+      validationSchema={enquirySchema}
+      onSubmit={(values) => {
+        console.log("Form Submitted ✅", values);
+      }}
+    >
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+      }) => (
+        <View style={styles.container}>
+          <CustomHeader
+            showBackIcon={true}
+            onPress={() => navigation.goBack()}
+            title="General Enquiry"
+            showProfile={false}
+          />
+          <ScrollView
+            contentContainerStyle={{ paddingBottom: 100 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <Card style={styles.formCard}>
+              <Card.Content>
+                <Text style={styles.title}>Send us your enquiry</Text>
+                <Text style={styles.subtitle}>
+                  We'll get back to you within 24 hours
+                </Text>
 
-            <Formik
-              initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                organization: "",
-                topic: "",
-                message: "",
-              }}
-              validationSchema={enquirySchema}
-              onSubmit={(values) => {
-                console.log("Form Submitted ✅", values);
-                // 🔗 Make API call here
-              }}
-            >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-              }) => (
+
                 <>
                   {/* First Name */}
                   <CustomTextInput
@@ -132,30 +137,32 @@ const GeneralEnquiry = () => {
                     value={values.message}
                     onChangeText={handleChange("message")}
                     leftIconName="message-text"
-                    multiline
+                    multiline={true}
                     numberOfLines={4}
-                    inputStyle={{textAlignVertical: 'top' }}
-                    customContainerStyle={{ minHeight: 150, alignItems: 'flex-start' }}
-                  
-                 />
+                    inputStyle={{ textAlignVertical: 'top' }}
+                    customContainerStyle={{ minHeight: 150, alignItems: 'flex-start', marginBottom: 100 }}
+                  />
                   {touched.message && errors.message && (
                     <Text style={styles.errorText}>{errors.message}</Text>
                   )}
 
                   {/* Submit Button */}
-                  <TouchableOpacity
-                    style={styles.submitBtn}
-                    onPress={() => handleSubmit()}
-                  >
-                    <Text style={styles.submitBtnText}>Submit Enquiry</Text>
-                  </TouchableOpacity>
                 </>
-              )}
-            </Formik>
-          </Card.Content>
-        </Card>
-      </ScrollView>
-    </View>
+              </Card.Content>
+              <Card.Content>
+                <TouchableOpacity
+                  style={styles.submitBtn}
+                  onPress={() => handleSubmit()}
+                >
+                  <Text style={styles.submitBtnText}>Submit Enquiry</Text>
+                </TouchableOpacity>
+
+              </Card.Content>
+            </Card>
+          </ScrollView>
+        </View>
+      )}
+    </Formik>
   );
 };
 
@@ -172,7 +179,6 @@ const getStyles = (theme: any) =>
       backgroundColor: theme.card,
       elevation: 3,
       marginHorizontal: 16,
-      marginTop: 16,
       paddingBottom: 20,
     },
     title: {
@@ -186,10 +192,10 @@ const getStyles = (theme: any) =>
       fontFamily: "Poppins-Light",
       color: theme.text,
       marginBottom: 16,
-      marginTop:-7,
+      marginTop: -7,
     },
     errorText: {
-    fontSize: 12,
+      fontSize: 12,
       color: theme.error,
       marginBottom: 5,
       fontFamily: 'Poppins-Regular',

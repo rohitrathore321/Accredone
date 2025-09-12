@@ -5,6 +5,7 @@ import { useAppTheme } from "../../hooks/colorTheme";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CustomTextInput from '../../components/customTextInput';
+import CustomHeader from '../../components/customheader';
 
 
 // ✅ Validation Schema
@@ -15,7 +16,7 @@ const ComplaintSchema = Yup.object().shape({
   complaintDetails: Yup.string().required("Complaint details are required"),
 });
 
-const ComplaintForm = () => {
+const ComplaintForm = ({ navigation }:any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
 
@@ -25,7 +26,31 @@ const ComplaintForm = () => {
   };
 
   return (
+
+    <Formik
+      initialValues={{
+        firstName: "",
+        lastName: "",
+        email: "",
+        relationship: "",
+        complaintAbout: "",
+        contactedUs: "",
+        referral: "",
+        complaintDetails: "",
+      }}
+      validationSchema={ComplaintSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ handleChange, handleSubmit, values, errors, touched }) => (
     <View style={styles.container}>
+      <CustomHeader
+        showBackIcon={true}
+        onPress={() => navigation.goBack()}
+        title="Complaint Form"
+        showRightIcon={true}
+        rightIconName="plus"
+        showProfile={false}
+      />
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
         <Card style={styles.formCard}>
           <Card.Content>
@@ -34,21 +59,6 @@ const ComplaintForm = () => {
               We take all complaints seriously and will investigate promptly
             </Text>
 
-            <Formik
-              initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                relationship: "",
-                complaintAbout: "",
-                contactedUs: "",
-                referral: "",
-                complaintDetails: "",
-              }}
-              validationSchema={ComplaintSchema}
-              onSubmit={handleSubmit}
-            >
-              {({ handleChange, handleSubmit, values, errors, touched }) => (
                 <>
                   <CustomTextInput
                     label="First Name *"
@@ -128,7 +138,7 @@ const ComplaintForm = () => {
                     multiline 
                     numberOfLines={4}
                     inputStyle={{textAlignVertical: 'top' }}
-                    customContainerStyle={{ minHeight: 150, alignItems: 'flex-start' }}
+                    customContainerStyle={{ minHeight: 150, alignItems: 'flex-start', marginBottom: 100 }}
                      
                   />
                   {touched.complaintDetails && errors.complaintDetails && (
@@ -139,12 +149,13 @@ const ComplaintForm = () => {
                     <Text style={styles.submitBtnText}>Submit Complaint</Text>
                   </TouchableOpacity>
                 </>
-              )}
-            </Formik>
+          
           </Card.Content>
         </Card>
       </ScrollView>
     </View>
+      )}
+    </Formik>
   );
 };
 
@@ -161,7 +172,6 @@ const getStyles = (theme: any) =>
       backgroundColor: theme.card,
       elevation: 3,
       marginHorizontal: 16,
-      marginTop: 16,
     },
     title: {
       fontSize: 20,

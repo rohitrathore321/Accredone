@@ -41,7 +41,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
           accessibilityLabel="Back"
           iconColor={appColorsCode.white}
           onPress={onPress}
-          style={{ marginRight: -30 }}
+          // style={{ marginRight: -30 }}
         />
       ) : (
         <IconButton
@@ -50,7 +50,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
           accessibilityLabel="Menu"
           iconColor={appColorsCode.white}
           onPress={onPress}
-          style={{ marginRight: -30 }}
+          // style={{ marginRight: -30 }}
 
         />
       )}

@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }: any) => {
             validationSchema={validationSchema}
             onSubmit={handleLogin}
         >
-            {({ handleChange, handleSubmit, values, errors, submitCount }) => (
+            {({ handleChange, handleSubmit, values, errors, submitCount, touched }) => (
                 <>
                     <CustomHeader
                         showBackIcon
@@ -59,13 +59,7 @@ const LoginScreen = ({ navigation }: any) => {
                     />
                     <View style={styles.container}>
                         <Card style={styles.formContainer}>
-                            {submitCount > 0 && Object.keys(errors).length > 0 && (
-                                <View style={styles.formErrorBox}>
-                                    <Text style={styles.formErrorText}>
-                                        {errors[Object.keys(errors)[0] as keyof typeof errors]}
-                                    </Text>
-                                </View>
-                            )}
+
                             <Card.Content>
 
                                 <CustomTextInput
@@ -75,6 +69,9 @@ const LoginScreen = ({ navigation }: any) => {
                                     onChangeText={handleChange("email")}
                                     leftIconName="account"
                                 />
+                                {touched.email && errors.email && (
+                                    <Text style={styles.errorText}>{errors.email}</Text>
+                                )}
 
                                 <CustomTextInput
                                     label="Password"
@@ -86,11 +83,14 @@ const LoginScreen = ({ navigation }: any) => {
                                     rightIconName={showPassword ? "eye-off" : "eye"}
                                     onPressRightIcon={() => setShowPassword(!showPassword)}
                                 />
+                                {touched.password && errors.password && (
+                                    <Text style={styles.errorText}>{errors.password}</Text>
+                                )}
 
 
-
-                                {/* Sign In Button */}
-                                <TouchableOpacity style={styles.signInButton} onPress={handleSubmit}>
+                                <TouchableOpacity style={styles.signInButton}
+                                    //@ts-ignore
+                                    onPress={handleSubmit}>
                                     {result?.isLoading ? (
                                         <ActivityIndicator animating color={appColorsCode.white} />
                                     ) : (
@@ -110,7 +110,10 @@ const LoginScreen = ({ navigation }: any) => {
                                 </View>
 
                                 {/* Microsoft Button */}
-                                <TouchableOpacity style={styles.signInButtonAlt} onPress={handleSubmit}>
+                                <TouchableOpacity style={styles.signInButtonAlt}
+                                    //@ts-ignore
+
+                                    onPress={handleSubmit}>
                                     <Icon source="microsoft-windows" size={20} color={appColorsCode.white} />
                                     <Text style={[styles.signInButtonText, { marginLeft: 10 }]}>
                                         Sign In With Microsoft
@@ -139,7 +142,7 @@ const getStyles = (theme: any) =>
             marginHorizontal: 16,
             borderRadius: 12,
             paddingVertical: 20,
-            paddingHorizontal: 20,
+            paddingHorizontal: 10,
         },
         forgetText: {
             fontSize: 14,
@@ -161,16 +164,12 @@ const getStyles = (theme: any) =>
             color: theme.text,
             fontSize: 14,
         },
-        formErrorBox: {
-            backgroundColor: appColorsCode.negative,
-            padding: 10,
-            marginBottom: 20,
-            borderRadius: 6,
-        },
-        formErrorText: {
-            color: appColorsCode.white,
-            textAlign: "center",
-            fontWeight: "600",
+        errorText: {
+            fontSize: 12,
+            color: theme.error,
+            marginBottom: 5,
+            fontFamily: 'Poppins-Regular',
+            marginTop: -15,
         },
         signInButton: {
             backgroundColor: appColorsCode.primary,

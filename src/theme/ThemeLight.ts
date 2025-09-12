@@ -17,8 +17,8 @@ export const themeLight = {
     onTertiary: appColorsCode.primary,
     tertiaryContainer: appColorsCode.primary,
     onTertiaryContainer: appColorsCode.primary,
-    error: appColorsCode.primary,
-    onError: appColorsCode.primary,
+    error: appColorsCode.negative,
+    onError: appColorsCode.negative,
     errorContainer: appColorsCode.primary,
     onErrorContainer: appColorsCode.primary,
     background: appColorsCode.background,
@@ -47,5 +47,5 @@ export const themeLight = {
     backdrop: appColorsCode.primary,
     text: appColorsCode.black,
     card: appColorsCode.white,
-  }
+  },
 };

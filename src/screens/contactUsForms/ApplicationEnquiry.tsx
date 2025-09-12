@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAppTheme } from "../../hooks/colorTheme";
 import CustomTextInput from "../../components/customTextInput";
+import CustomHeader from "../../components/customheader";
 
 // ✅ Validation Schema
 const enquirySchema = Yup.object().shape({
@@ -16,12 +17,18 @@ const enquirySchema = Yup.object().shape({
   anticipatedMarkets: Yup.string(),
 });
 
-const ApplicationEnquiry = () => {
+const ApplicationEnquiry = ({ navigation }: any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
 
   return (
     <View style={styles.container}>
+      <CustomHeader
+        showBackIcon={true}
+        onPress={() => navigation.goBack()}
+        title="Application Enquiry"
+        showProfile={false}
+      />
       <ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
@@ -153,7 +160,7 @@ const getStyles = (theme: any) =>
       fontFamily: "Poppins-Light",
       color: theme.text,
       marginBottom: 16,
-      marginTop:-7,
+      marginTop: -7,
     },
     errorText: {
       fontSize: 12,

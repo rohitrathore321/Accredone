@@ -6,12 +6,15 @@ import { Card, Divider, Icon, IconButton } from 'react-native-paper';
 import globalStyles from '../../styles/globalStyles';
 import CustomIconButton from '../../components/customIconButton';
 import { appColorsCode } from '../../styles/appColorsCode';
+import DescriptionCard from '../../components/descriptionCard';
+import QuickActionCard from '../../components/quickActionCard';
+import DetailCard from '../../components/detailCard';
 
 const caseDetails = ({ navigation }: any) => {
     const theme = useAppTheme();
     const styles = getStyles(theme);
 
-    
+
     return (
         <View style={styles.container}>
             <CustomHeader
@@ -23,75 +26,34 @@ const caseDetails = ({ navigation }: any) => {
             />
             <ScrollView style={{ paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
 
-                <Card style={styles.menuCard} onPress={() => navigation.navigate('CaseDetails')}>
-                    <Card.Content style={{}}>
-                        <View style={globalStyles.flexRow}>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-SemiBold', fontSize: 18 }]}>Question About Assement</Text>
-                            <View style={[styles.tag, { backgroundColor: appColorsCode.orange }]}>
-                                <Text style={[styles.txt]}>{'open'}</Text>
-                            </View>
-                        </View>
-                    </Card.Content>
-                    <View style={{ height: 1, backgroundColor: appColorsCode.gray, margin: 16 }} />
-
-                    <Card.Content style={[globalStyles.flexRow,]}>
-                        <View>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Case Id : </Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Type : </Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Priority : </Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Assigned To : </Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Created : </Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Last Updated : </Text>
-                        </View>
-                        <View>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Regular', }]}>Case-2024-001</Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Regular', }]}>General Enquiry</Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Regular', }]}>Medium</Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Regular', }]}>Sarah John</Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Regular', }]}>15 jan, 2024</Text>
-                            <Text style={[styles.txt, { fontFamily: 'Poppins-Regular', }]}>17 jan, 2024</Text>
-
-                        </View>
-                    </Card.Content>
-                </Card>
-
-                <Card.Title
+                <DetailCard
+                    title="Question About Assessment"
+                    status="Open"
+                    statusColor={appColorsCode.orange}
+                    details={[
+                        { label: "Case Id", value: "Case-2024-001" },
+                        { label: "Type", value: "General Enquiry" },
+                        { label: "Priority", value: "Medium" },
+                        { label: "Assigned To", value: "Sarah John" },
+                        { label: "Created", value: "15 Jan, 2024" },
+                        { label: "Last Updated", value: "17 Jan, 2024" },
+                    ]}
+                />
+                
+                <DescriptionCard
                     title="Card Title"
-                    titleStyle={{ fontSize: 16, fontFamily: "Poppins-SemiBold" }}
                     subtitle="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam doloremque adipisci reprehenderit voluptate, voluptas assumenda eius debitis ea in, modi inventore corrupti. Hic ex, veritatis alias corporis quae libero ducimus."
-                    subtitleStyle={{
-                        fontSize: 14,
-                        fontFamily: "Poppins-Regular",
-                    }}
-                    subtitleNumberOfLines={0}
-                    style={[styles.menuCard, { padding: 16 }]}
                 />
 
-                <Card style={styles.menuCard} onPress={() => navigation.navigate('CaseDetails')}>
-                    <Card.Content style={{}}>
-                        <Text style={[styles.txt, { fontFamily: 'Poppins-SemiBold', fontSize: 16 }]}>Quick Actions</Text>
-                        <View style={globalStyles.flexRow}>
-                            <TouchableOpacity style={[globalStyles.flexCenter, styles.btn]}>
-                                <Icon source='plus' size={25} color={appColorsCode.primary} />
-                                <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Add Notes</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[globalStyles.flexCenter, styles.btn]}>
-                                <Icon source='plus' size={25} color={appColorsCode.primary} />
-                                <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Add Notes</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={globalStyles.flexRow}>
-                            <TouchableOpacity style={[globalStyles.flexCenter, styles.btn]}>
-                                <Icon source='plus' size={25} color={appColorsCode.primary} />
-                                <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Add Notes</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[globalStyles.flexCenter, styles.btn]}>
-                                <Icon source='plus' size={25} color={appColorsCode.primary} />
-                                <Text style={[styles.txt, { fontFamily: 'Poppins-Light', }]}>Add Notes</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Card.Content>
-                </Card>
+                <QuickActionCard
+                    actions={[
+                        { label: "Add Notes", icon: "note-plus", onPress: () => console.log("Notes") },
+                        { label: "Upload File", icon: "file-upload", onPress: () => console.log("Upload") },
+                        { label: "Schedule", icon: "calendar", onPress: () => console.log("Schedule") },
+                        { label: "Task", icon: "check-circle", onPress: () => console.log("Task") },
+                    ]}
+                />
+
 
                 <Card style={styles.menuCard} onPress={() => navigation.navigate('CaseDetails')}>
                     <Card.Content >

@@ -75,7 +75,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
           </View>
 
        
-          <View style={styles.rowBetween}>
+          <View style={[styles.rowBetween,{marginTop:6}]}>
             <View style={[styles.priorityBadge, priorityStyle?.container]}>
               <Text style={[styles.priorityText, priorityStyle?.text]}>
                 {priority}
@@ -109,7 +109,6 @@ const getStyles = (theme: any) =>
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginTop: 6,
     },
     iconWrapper: {
       marginRight: 12,
