@@ -9,12 +9,12 @@ const tabs = {
     Cases: { label: "Cases", icon: "folder" },
 };
 
-const CustomBottomTabs = ({ state, descriptors, navigation }:any) => {
+const CustomBottomTabs = ({ state, descriptors, navigation }: any) => {
     const theme = useAppTheme();
-  const styles = getStyles(theme);
+    const styles = getStyles(theme);
     return (
         <View style={styles.container}>
-            {state.routes.map((route:any, index:any) => {
+            {state.routes.map((route: any, index: any) => {
                 const isFocused = state.index === index;
                 const { options } = descriptors[route.key];
                 // @ts-ignore
@@ -63,32 +63,32 @@ const CustomBottomTabs = ({ state, descriptors, navigation }:any) => {
 export default CustomBottomTabs;
 
 const getStyles = (theme: any) =>
-  StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center",
-        backgroundColor: theme.background,
-        borderTopWidth: 1,
-        borderTopColor: theme.background,
-        bottom: 0,
-        position: "absolute",
-        right: 0,
-        left: 0,
-        height: 60,
-    },
-    tabItem: {
-        alignItems: "center",
-        justifyContent: "center",
-        paddingVertical: 8,
-        paddingHorizontal: 32,
-        borderRadius: 12,
-    },
-    activeTab: {
-        backgroundColor: "#e0e7ff",
-    },
-    tabLabel: {
-        fontSize: 12,
-        marginTop: 4,
-    },
-});
+    StyleSheet.create({
+        container: {
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+            backgroundColor: theme.surface,
+            borderTopWidth: 1,
+            borderTopColor: theme.surface,
+            bottom: 0,
+            position: "absolute",
+            right: 0,
+            left: 0,
+            height: 60,
+        },
+        tabItem: {
+            alignItems: "center",
+            justifyContent: "center",
+            paddingVertical: 8,
+            paddingHorizontal: 32,
+            borderRadius: 12,
+        },
+        activeTab: {
+            backgroundColor: "#e0e7ff",
+        },
+        tabLabel: {
+            fontSize: 12,
+            marginTop: 4,
+        },
+    });

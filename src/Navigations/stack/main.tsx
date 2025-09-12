@@ -1,23 +1,25 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { AppState, AppStateStatus, Platform, Settings, View } from 'react-native';
+import { AppState, AppStateStatus, Platform, Settings, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text } from 'react-native-paper';
-import { appColorsCode } from '../../styles/appColorsCode';
 import NetInfo from '@react-native-community/netinfo';
 import { store } from '../../appstore/store/store';
 import { updateConnection, updateProcess } from '../../appstore/reducers/appStateSlice';
 import { setToken } from '../../appstore/reducers/authSlice';
 import Interceptor from '../../service/interceptor';
 import StackNavigator from './stackNavigator';
-import LoginSceen from '../auth/loginScreen';
 import AuthStack from '../auth/authStack';
+import { appColorsCode } from '../../styles/appColorsCode';
+import { useAppTheme } from '../../hooks/colorTheme';
 
 const MainScreen = () => {
     const dispatch = useDispatch();
+    const theme = useAppTheme();
+    const styles = getStyles(theme);
+
     const appState = useRef(AppState.currentState);
     const [appReady, setAppReady] = useState(false);
-    const auth = useSelector((state: any) => state.auth?.token);
 
+    const auth = useSelector((state: any) => state.auth?.token);
     const isConnected = useSelector((state: any) => state.app.isConnected);
 
 
@@ -29,7 +31,6 @@ const MainScreen = () => {
         AppState.addEventListener('change', _handleAppStateChange);
         startApp();
     }, []);
-
 
 
     const _handleAppStateChange = (nextAppState: AppStateStatus) => {
@@ -78,22 +79,15 @@ const MainScreen = () => {
     if (appReady) {
         return (
             <>
-                {/* {!isConnected && (
+                {!isConnected && (
                     <View
-                        style={{
-                            backgroundColor: appColorsCode.white,
-                            justifyContent: 'center',
-                            width: '100%',
-                        }}>
-                        <Text style={{ textAlign: 'center', color: appColorsCode.white }}>
+                        style={styles.netContainer}>
+                        <Text style={styles.txt}>
                             No Internet Available
                         </Text>
                     </View>
-                )} */}
-                {/* <Text>kjjd</Text> */}
+                )}
                 {auth ? <StackNavigator /> : <AuthStack />}
-                {/* <StackNavigator/> */}
-                {/* <LoginSceen/> */}
             </>
         );
     }
@@ -102,3 +96,18 @@ const MainScreen = () => {
     // }
 };
 export default memo(MainScreen);
+
+const getStyles = (theme: any) =>
+    StyleSheet.create({
+        netContainer: {
+            backgroundColor: theme.surface,
+            justifyContent: 'center',
+            width: '100%',
+        },
+        txt: {
+            textAlign: 'center',
+            color: theme.text,
+            fontFamily: 'Poppins-SemiBold',
+            marginVertical: 4
+        }
+    });

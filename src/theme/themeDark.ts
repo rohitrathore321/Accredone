@@ -23,7 +23,7 @@ export const themeDark = {
     onErrorContainer: appColorsCode.primary,
     background: appColorsCode.black,
     onBackground: appColorsCode.black,
-    surface: appColorsCode.primary,
+    surface: appColorsCode.black,
     onSurface: appColorsCode.primary,
     surfaceVariant: appColorsCode.primary,
     onSurfaceVariant: appColorsCode.primary,

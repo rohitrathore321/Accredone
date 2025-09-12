@@ -14,11 +14,11 @@ const Assessments = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const modalItems = [
-  { id: "1", icon: "plus-circle", label: "Create New Assessment", onPress: () => navigation.navigate("AssessmentPlanning") },
-  { id: "2", icon: "content-duplicate", label: "Import Assessment", onPress: () => console.log("Duplicate") },
-  { id: "3", icon: "filter-variant", label: "Filter Assessment", onPress: () => console.log("Share") },
-  { id: "4", icon: "file-export", label: "Export All", onPress: () => console.log("Export") },
-  { id: "5", icon: "cog", label: "Assessment Settings", onPress: () => navigation.navigate("ResourceAssessments") },  
+    { id: "1", icon: "plus-circle", label: "Create New Assessment", onPress: () => navigation.navigate("AssessmentPlanning") },
+    { id: "2", icon: "content-duplicate", label: "Import Assessment", onPress: () => console.log("Duplicate") },
+    { id: "3", icon: "filter-variant", label: "Filter Assessment", onPress: () => console.log("Share") },
+    { id: "4", icon: "file-export", label: "Export All", onPress: () => console.log("Export") },
+    { id: "5", icon: "cog", label: "Assessment Settings", onPress: () => navigation.navigate("ResourceAssessments") },
   ];
 
   const data = [
@@ -132,6 +132,7 @@ const Assessments = ({ navigation }: any) => {
       statusStyle={getStatusStyle(item.status)}
       priorityStyle={getPriorityStyle(item.priority)}
       onPress={() => navigation.navigate("AssessmentDetail")}
+      priorityBadge={true}
     />
   );
 
@@ -184,10 +185,10 @@ const Assessments = ({ navigation }: any) => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           // contentContainerStyle={{ paddingBottom: 20 }}
-           scrollEnabled={false}  
+          scrollEnabled={false}
         />
       </ScrollView>
-       <CustomModal
+      <CustomModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
         title="Assessment Actions"
