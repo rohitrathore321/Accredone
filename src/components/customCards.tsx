@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ViewStyle, TextStyle } from "react-native";
 import { Card, Icon } from "react-native-paper";
 import { useAppTheme } from "../hooks/colorTheme";
 import CustomIconButton from "./customIconButton";
+import globalStyles from "../styles/globalStyles";
 
 type CustomCardProps = {
   title: string;
@@ -16,9 +17,9 @@ type CustomCardProps = {
   priority: string;
   icon: string;
   onPress?: () => void;
-
   statusStyle?: { container?: ViewStyle; text?: TextStyle };
   priorityStyle?: { container?: ViewStyle; text?: TextStyle };
+  priorityBadge:boolean;
 };
 
 const CustomCard: React.FC<CustomCardProps> = ({
@@ -35,13 +36,14 @@ const CustomCard: React.FC<CustomCardProps> = ({
   onPress,
   statusStyle,
   priorityStyle,
+  priorityBadge= true
 }) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
 
   return (
     <Card style={styles.card} onPress={onPress}>
-      <View style={styles.row}>
+      <Card.Content style={styles.row}>
 
         <View style={styles.iconWrapper}>
           <CustomIconButton iconName={icon} iconSize={20} />
@@ -49,7 +51,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
 
         <View style={{ flex: 1 }}>
 
-          <View style={styles.rowBetween}>
+          <View style={globalStyles.centerContent}>
             <Text style={styles.title}>{title}</Text>
             <View style={[styles.statusBadge, statusStyle?.container]}>
               <Text style={[styles.statusText, statusStyle?.text]}>
@@ -59,32 +61,31 @@ const CustomCard: React.FC<CustomCardProps> = ({
           </View>
 
 
-          <View style={styles.rowBetween}>
+          <View style={globalStyles.centerContent}>
             <Text style={styles.metaLeft}>
               {assessmentId} · {role}
             </Text>
             <Icon source="chevron-right" size={20} color={theme.text} />
           </View>
 
-       
-          <View style={styles.rowBetween}>
+          <View style={globalStyles.centerContent}>
             <Text style={styles.metaLeft}>
               {client} · {location}
             </Text>
             <Text style={styles.metaRight}>{date}</Text>
           </View>
 
-       
-          <View style={[styles.rowBetween,{marginTop:6}]}>
+          {priorityBadge &&  ( <View style={[globalStyles.centerContent,{marginTop:6}]}>
             <View style={[styles.priorityBadge, priorityStyle?.container]}>
               <Text style={[styles.priorityText, priorityStyle?.text]}>
                 {priority}
               </Text>
             </View>
             <Text style={styles.metaRight}>{duration}</Text>
-          </View>
+          </View>)}
+
         </View>
-      </View>
+      </Card.Content >
     </Card>
   );
 };
@@ -96,19 +97,12 @@ const getStyles = (theme: any) =>
     card: {
       marginBottom: 16,
       borderRadius: 12,
-      padding: 12,
       elevation: 3,
       backgroundColor: theme.card,
       marginHorizontal: 16,
     },
     row: {
       flexDirection: "row",
-      alignItems: "flex-start",
-    },
-    rowBetween: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
     },
     iconWrapper: {
       marginRight: 12,
@@ -124,18 +118,18 @@ const getStyles = (theme: any) =>
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 15,
-      backgroundColor: "transparent", 
+      backgroundColor: "transparent",
     },
     statusText: {
       fontSize: 12,
-      fontWeight: "500",
       color: theme.text,
+      fontFamily:'Poppins-Regular'
     },
     priorityBadge: {
       paddingHorizontal: 8,
       paddingVertical: 3,
       borderRadius: 12,
-      backgroundColor: "transparent", 
+      backgroundColor: "transparent",
     },
     priorityText: {
       fontSize: 12,

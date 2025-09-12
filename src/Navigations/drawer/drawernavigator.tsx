@@ -20,14 +20,14 @@ const Drawernavigator = () => {
         headerShown: false, drawerStyle: { backgroundColor: appColorsCode.primary, width: '75%' },
         drawerLabelStyle: { color: appColorsCode.white, }
       }}
-      drawerContent={(props) => <CustomDrawer {...props}/>}
-    >    
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
       <Drawer.Screen name="Home" component={HomeScreen} />
-       <Drawer.Screen name="Assessments" component={Assessments} options={{headerShown:false}} />
-          <Drawer.Screen name="MyCase" component={MyCase} options={{headerShown:false}} />
-          <Drawer.Screen name="Notificationscreen" component={Notificationscreen} options={{headerShown:false}} />          
-      </Drawer.Navigator>
-         
+      <Drawer.Screen name="Assessments" component={Assessments} options={{ headerShown: false }} />
+      <Drawer.Screen name="MyCase" component={MyCase} options={{ headerShown: false }} />
+      <Drawer.Screen name="Notificationscreen" component={Notificationscreen} options={{ headerShown: false }} />
+    </Drawer.Navigator>
+
   )
 }
 

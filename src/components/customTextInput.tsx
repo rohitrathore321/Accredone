@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Icon, IconButton, } from 'react-native-paper';
 import { useAppTheme } from '../hooks/colorTheme';
+import { appColorsCode } from '../styles/appColorsCode';
 
 interface CustomTextInputProps {
   label?: string;
@@ -10,9 +11,9 @@ interface CustomTextInputProps {
   onChangeText: (text: string) => void;
   autoFocus?: boolean;
   secureTextEntry?: boolean;
-  leftIconName?: string;         // e.g., "document-text"
-  rightIconName?: string;        // e.g., "eye"
-  onPressRightIcon?: () => void; // for right icon actions
+  leftIconName?: string;
+  rightIconName?: string;
+  onPressRightIcon?: () => void;
   editable?: boolean;
   readOnly?: boolean;
   multiline?: boolean;
@@ -42,8 +43,8 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   inputStyle,
   customContainerStyle,
 }) => {
-    const theme = useAppTheme();
-    const styles = getStyles(theme);
+  const theme = useAppTheme();
+  const styles = getStyles(theme);
   return (
     <View style={[styles.inputGroup, containerStyle]}>
       {label ? <Text style={styles.inputLabel}>{label}</Text> : null}
@@ -56,14 +57,14 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
               marginRight: 8,
               marginTop: multiline ? 14 : 0,
             }}>
-            <Icon source={leftIconName} size={18} color="#94a3b8" />
+            <Icon source={leftIconName} size={18} color={appColorsCode.lightGray} />
           </View>
         ) : null}
 
         <TextInput
           style={[styles.mobileInput, inputStyle]}
           placeholder={placeholder}
-          placeholderTextColor={'#9ca3af'}
+          placeholderTextColor={appColorsCode.lightGray}
           value={value}
           onChangeText={onChangeText}
           autoFocus={autoFocus}
@@ -72,14 +73,12 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
           multiline={multiline}
           numberOfLines={numberOfLines}
           keyboardType={keyboardType}
-          // underlineColor="transparent"
-          // activeUnderlineColor="transparent"
         />
 
         {rightIconName ? (
           <IconButton
             icon={rightIconName}
-            iconColor={'#94a3b8'}
+            iconColor={appColorsCode.lightGray}
             size={20}
             onPress={onPressRightIcon}
           />
@@ -93,34 +92,32 @@ export default CustomTextInput;
 
 const getStyles = (theme: any) =>
   StyleSheet.create({
-  inputGroup: {
-    marginBottom: 16,
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: theme.text,
-    marginBottom: 8,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor:theme.background,
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    // borderColor: '#e5e7eb',
-    // height: 48,
-    borderColor: '#f9fafb',
-    height: 48,
-  },
-  inputIcon: {
-    marginHorizontal: 8,
-  },
-  mobileInput: {
-    flex: 1,
-    fontSize: 16,
-    color: theme.text,
-    backgroundColor: 'transparent',
-  },
-});
+    inputGroup: {
+      marginBottom: 16,
+    },
+    inputLabel: {
+      fontSize: 14,
+      color: theme.text,
+      marginBottom: 8,
+      fontFamily: 'Poppins-regular'
+    },
+    inputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme.background,
+      borderRadius: 12,
+      paddingHorizontal: 16,
+      borderWidth: 1,
+      borderColor: appColorsCode.lightGray,
+      height: 48,
+    },
+    inputIcon: {
+      marginHorizontal: 8,
+    },
+    mobileInput: {
+      flex: 1,
+      fontSize: 16,
+      color: theme.text,
+      // backgroundColor: 'transparent',
+    },
+  });

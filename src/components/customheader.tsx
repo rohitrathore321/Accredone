@@ -86,14 +86,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
     borderRadius: 15,
-    margin: 16
+    marginHorizontal: 16,
+    marginVertical:8
   },
   title: {
     fontSize: 18,
     color: appColorsCode.white,
     fontFamily: 'Poppins-Medium',
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   profileImg: {
     width: 30,

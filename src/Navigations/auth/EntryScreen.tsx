@@ -1,8 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { Card, Button, IconButton } from "react-native-paper";
+import { Card, Button } from "react-native-paper";
 import { useAppTheme } from "../../hooks/colorTheme";
-import appColorsCode from "../../styles/appColorsCode";
 import CustomIconButton from "../../components/customIconButton";
 import CustomHeader from "../../components/customheader";
 
@@ -21,68 +20,46 @@ const EntryScreen = ({ navigation }: any) => {
         showProfile={false}
       />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
-        {/* Welcome Card */}
+
         <Card style={styles.welcomeCard}>
           <Card.Content>
-              <Text style={styles.title}>Welcome to AccredApp</Text>
-              <Text style={styles.subtitle}>
-                Streamline your assessment management with our comprehensive platform
-                designed for modern accreditation needs.
-              </Text>
+            <Text style={styles.title}>Welcome to AccredApp</Text>
+            <Text style={styles.subtitle}>Streamline your assessment management with our comprehensive platformdesigned for modern accreditation needs.</Text>
 
-            {/* Buttons Row */}
-              <Button
-                mode="contained"
-                style={styles.signInButton}
-                icon="login"
-                onPress={() => navigation.navigate("login")}
-              >
-                Sign In
-              </Button>
-
-              <Button
-                mode="outlined"
-                icon="phone"
-                onPress={() => navigation.navigate('FormStack', { screen: 'ContactUs' })}
-              >
-                Contact Us
-              </Button>
+            <Button mode="contained" style={styles.signInButton} icon="login" onPress={() => navigation.navigate("login")}>
+              Sign In
+            </Button>
+            <Button mode="outlined" icon="phone" onPress={() => navigation.navigate('FormStack', { screen: 'ContactUs' })}>
+              Contact Us
+            </Button>
           </Card.Content>
         </Card>
 
-        {/* Features Heading */}
-        <Text style={styles.featuresHeading}>Key Features</Text>
+        <>
+          <Text style={styles.featuresHeading}>Key Features</Text>
+        </>
 
-        {/* Feature 1 */}
         <Card style={styles.featureCard}>
           <Card.Content >
             <CustomIconButton iconName={'check-circle'} onPress={() => { }} />
             <Text style={styles.featureTitle}>Secure Management</Text>
-            <Text style={styles.featureDesc}>
-              End-to-end encrypted processes with comprehensive audit trails
-            </Text>
+            <Text style={styles.featureDesc}>End-to-end encrypted processes with comprehensive audit trails</Text>
           </Card.Content>
         </Card>
 
-        {/* Feature 2 */}
         <Card style={styles.featureCard}>
           <Card.Content>
             <CustomIconButton iconName={'check-circle'} onPress={() => { }} />
             <Text style={styles.featureTitle}>Accreditation Excellence</Text>
-            <Text style={styles.featureDesc}>
-              Streamlined workflows for ISO standards and certification
-            </Text>
+            <Text style={styles.featureDesc}>Streamlined workflows for ISO standards and certification</Text>
           </Card.Content>
         </Card>
 
-        {/* Feature 3 */}
         <Card style={styles.featureCard}>
           <Card.Content >
             <CustomIconButton iconName={'check-circle'} onPress={() => { }} />
             <Text style={styles.featureTitle}>Team Collaboration</Text>
-            <Text style={styles.featureDesc}>
-              Real-time collaboration tools for assessors and teams
-            </Text>
+            <Text style={styles.featureDesc}>Real-time collaboration tools for assessors and teams</Text>
           </Card.Content>
         </Card>
       </ScrollView>
@@ -109,42 +86,41 @@ const getStyles = (theme: any) => {
       fontSize: 18,
       fontFamily: 'Poppins-SemiBold',
       color: theme.text,
-      textAlign:'center'
+      textAlign: 'center'
     },
     subtitle: {
       fontSize: 14,
       fontFamily: 'Poppins-Light',
       color: theme.text,
       textAlign: 'center'
-
     },
     signInButton: {
       color: theme.primary,
-      marginVertical:8,
-      marginTop:20
+      marginVertical: 8,
+      marginTop: 20
     },
     featuresHeading: {
-      fontSize: 18,
+      fontSize: 16,
       fontFamily: 'Poppins-SemiBold',
       color: theme.text,
       marginHorizontal: 16,
-      marginVertical:8
+      // marginVertical: 8
     },
     featureCard: {
-      marginVertical: 8,
+      marginTop: 8,
       borderRadius: 12,
       elevation: 5,
       backgroundColor: theme.card,
       marginHorizontal: 16,
     },
     featureTitle: {
-      fontSize: 16,
+      fontSize: 14,
       fontFamily: 'Poppins-SemiBold',
       color: theme.text,
-      marginTop:10
+      marginTop: 10
     },
     featureDesc: {
-      fontSize: 14,
+      fontSize: 12,
       fontFamily: 'Poppins-Light',
       color: theme.text,
     },

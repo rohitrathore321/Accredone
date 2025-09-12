@@ -1,19 +1,61 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { Card, IconButton, Divider } from "react-native-paper";
+import { Card } from "react-native-paper";
 import { useAppTheme } from "../../hooks/colorTheme";
 import globalStyles from "../../styles/globalStyles";
 import CustomHeader from "../../components/customheader";
 import CustomIconButton from "../../components/customIconButton";
+import { LineChart } from "react-native-gifted-charts";
+import CircleChart from "./CircleChart";
+import { appColorsCode } from "../../styles/appColorsCode";
+
+const ActivityList = ({ title, activities }: any) => {
+  const theme = useAppTheme();
+  const styles = getStyles(theme);
+
+  return (
+    <Card style={styles.activityCard}>
+      <Text style={styles.sectionHeading}>{title}</Text>
+      {activities.map((act: any, index: number) => (
+        <View key={index}>
+          <View style={styles.activityRow}>
+            <View style={globalStyles.alignIcon}>
+              <CustomIconButton iconName={act.icon} height={60} width={60} />
+              <View style={styles.activityTextWrapper}>
+                <Text style={styles.activityTitle}>{act.title}</Text>
+                <Text style={styles.activitySub}>{act.sub}</Text>
+              </View>
+            </View>
+          </View>
+          {index < activities.length - 1 && (
+            <View style={styles.divider} />
+          )}
+        </View>
+      ))}
+    </Card>
+  );
+};
 
 const HomeScreen = ({ navigation }: any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
 
-  const menuItems = [
-    { title: "My Assessments", sub: "View and manage tasks", icon: "bell" },
-    { title: "My Cases", sub: "Track case progress", icon: "bell" },
-    { title: "Contact Support", sub: "Get help from team", icon: "bell" },
+  const blueLine = [
+    { value: 20, label: "Jan" },
+    { value: 45, label: "Feb" },
+    { value: 28, label: "Mar" },
+    { value: 80, label: "Apr" },
+    { value: 99, label: "May" },
+    { value: 43, label: "Jun" },
+  ];
+
+  const grayLine = [
+    { value: 15, label: "Jan" },
+    { value: 35, label: "Feb" },
+    { value: 55, label: "Mar" },
+    { value: 60, label: "Apr" },
+    { value: 85, label: "May" },
+    { value: 70, label: "Jun" },
   ];
 
   const activities = [
@@ -26,17 +68,21 @@ const HomeScreen = ({ navigation }: any) => {
       <CustomHeader
         showBackIcon
         onPress={() => navigation.goBack()}
-        title="My Assessments"
+        title="DashBoard"
         showRightIcon={false}
         showProfile={false}
       />
 
       <ScrollView
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 2, paddingBottom: 100 }}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        {/* Top Row Cards */}
         <View style={styles.topRow}>
-          <Card style={[styles.statCard, { marginRight: 12 }]} onPress={() => navigation.navigate("Assessments")}>
+          <Card
+            style={[styles.statCard, { marginRight: 12 }]}
+            onPress={() => navigation.navigate("Assessments")}
+          >
             <View style={styles.statContent}>
               <CustomIconButton iconName="bell" onPress={() => { }} />
               <Text style={styles.statNumber}>12</Text>
@@ -53,40 +99,37 @@ const HomeScreen = ({ navigation }: any) => {
           </Card>
         </View>
 
-        <View >
-          {menuItems.map((item, index) => (
-            <Card key={index} style={styles.menuCard}>
-              <View style={globalStyles.centerContent}>
-                <View style={globalStyles.alignIcon}>
-                  <CustomIconButton iconName={item.icon} onPress={() => { }} height={60} width={60} />
-                  <View style={{ marginLeft: 12 }}>
-                    <Text style={styles.menuTitle}>{item.title}</Text>
-                    <Text style={styles.menuSub}>{item.sub}</Text>
-                  </View>
-                </View>
-                <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
-              </View>
-            </Card>
-          ))}
+        {/* Circle chart */}
+        <CircleChart />
+
+        {/* Line Chart */}
+        <View style={styles.graphWrapper}>
+          <Text style={styles.sectionHeading}>Monthly Data Comparison</Text>
+          <LineChart
+            data={blueLine}
+            data2={grayLine}
+            height={220}
+            spacing={40}
+            initialSpacing={40}
+            color1="blue"
+            color2="gray"
+            hideRules={false}
+            showVerticalLines
+            yAxisColor="lightgray"
+            xAxisColor="lightgray"
+            yAxisTextStyle={{ color: "black" }}
+            xAxisLabelTextStyle={{ color: "black" }}
+            dataPointsHeight={6}
+            dataPointsWidth={6}
+            dataPointsColor1="blue"
+            dataPointsColor2="gray"
+            thickness={3}
+          />
         </View>
 
-        <Text style={styles.sectionHeading}>Recent Activity</Text>
-        <Card style={styles.activityCard}>
-          {activities.map((act, index) => (
-            <View key={index}>
-              <View style={styles.activityRow}>
-                <View style={globalStyles.alignIcon}>
-                  <CustomIconButton iconName={act.icon} onPress={() => { }} height={60} width={60} />
-                  <View style={{ marginLeft: 12 }}>
-                    <Text style={styles.activityTitle}>{act.title}</Text>
-                    <Text style={styles.activitySub}>{act.sub}</Text>
-                  </View>
-                </View>
-              </View>
-              {index < activities.length - 1 && <Divider style={styles.divider} />}
-            </View>
-          ))}
-        </Card>
+        {/* Activity Lists (Reused component) */}
+        <ActivityList title="Upcoming Assessments" activities={activities} />
+        <ActivityList title="Recent Activity" activities={activities} />
       </ScrollView>
     </View>
   );
@@ -100,15 +143,19 @@ const getStyles = (theme: any) =>
       flex: 1,
       backgroundColor: theme.background,
     },
+    scrollContent: {
+      paddingHorizontal: 16,
+      paddingBottom: 100,
+    },
     topRow: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginBottom: 20,
+      marginVertical: 8,
     },
     statCard: {
       flex: 1,
-      borderRadius: 14,
-      elevation: 3,
+      borderRadius: 12,
+      elevation: 5,
       backgroundColor: theme.card,
     },
     statContent: {
@@ -121,41 +168,28 @@ const getStyles = (theme: any) =>
       color: theme.text,
     },
     statLabel: {
-      fontSize: 13,
-      fontFamily: "Poppins-Light",
-      color: theme.text,
-    },
-    menuCard: {
-      marginBottom: 12,
-      borderRadius: 12,
-      elevation: 2,
-      backgroundColor: theme.card,
-      padding: 8,
-    },
-    menuTitle: {
-      fontSize: 15,
-      fontFamily: "Poppins-SemiBold",
-      color: theme.text,
-    },
-    menuSub: {
       fontSize: 12,
       fontFamily: "Poppins-Light",
       color: theme.text,
     },
     sectionHeading: {
-      fontSize: 18,
-      fontFamily: "Poppins-SemiBold",
+      fontSize: 16,
+      fontFamily: "Poppins-Bold",
       color: theme.text,
       marginVertical: 6,
     },
     activityCard: {
-      borderRadius: 12,
-      elevation: 2,
+      borderRadius: 15,
+      elevation: 5,
       backgroundColor: theme.card,
       padding: 12,
+      marginTop: 8,
     },
     activityRow: {
       paddingVertical: 10,
+    },
+    activityTextWrapper: {
+      marginLeft: 12,
     },
     activityTitle: {
       fontSize: 14,
@@ -167,8 +201,15 @@ const getStyles = (theme: any) =>
       fontFamily: "Poppins-Light",
       color: theme.text,
     },
+    graphWrapper: {
+      backgroundColor: "#fdffff",
+      borderRadius: 15,
+      padding: 12,
+      elevation: 5,
+    },
     divider: {
-      marginVertical: 6,
-      color: theme.color,
+      height: 1,
+      backgroundColor: appColorsCode.gray,
+      marginVertical: 8,
     },
   });

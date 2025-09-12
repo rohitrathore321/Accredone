@@ -12,67 +12,65 @@ const ContactUs = ({ navigation }: any) => {
   const styles = getStyles(theme);
 
   return (
-    <>
-        <CustomHeader
-          showBackIcon={true}
-          onPress={() => navigation.goBack()}
-          title="ContactUs"
-          showProfile={false}
-        />
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-
-
-          <Card style={styles.menuCard} onPress={() => navigation.navigate("GeneralEnquiry")}>
-            <View style={globalStyles.centerContent}>
-              <View style={globalStyles.alignIcon}>
-                <CustomIconButton iconName={'help-circle'} onPress={() => { }} />
-                <View style={{ marginLeft: 12 }}>
-                  <Text style={styles.menuTitle}>General Enquiry</Text>
-                  <Text style={styles.menuSub}>
-                    General questions about our services
-                  </Text>
-                </View>
+    <View style={styles.container}>
+      <CustomHeader
+        showBackIcon={true}
+        onPress={() => navigation.goBack()}
+        title="ContactUs"
+        showProfile={false}
+      />
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, }}>
+        <Card style={styles.menuCard} onPress={() => navigation.navigate("GeneralEnquiry")}>
+          <View style={globalStyles.centerContent}>
+            <View style={globalStyles.alignIcon}>
+              <CustomIconButton iconName={'help-circle'} onPress={() => { }} />
+              <View style={{ marginLeft: 12 }}>
+                <Text style={styles.menuTitle}>General Enquiry</Text>
+                <Text style={styles.menuSub}>
+                  General questions about our services
+                </Text>
               </View>
-              <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
             </View>
-          </Card>
+            <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
+          </View>
+        </Card>
 
-          {/* Application Enquiry */}
-          <Card style={styles.menuCard} onPress={() => navigation.navigate("ApplicationEnquiry")}>
-            <View style={globalStyles.centerContent}>
-              <View style={globalStyles.alignIcon}>
-                <CustomIconButton iconName={'file-document'} onPress={() => { }} backgroundColor={appColorsCode.purple} />
+        {/* Application Enquiry */}
+        <Card style={styles.menuCard} onPress={() => navigation.navigate("ApplicationEnquiry")}>
+          <View style={globalStyles.centerContent}>
+            <View style={globalStyles.alignIcon}>
+              <CustomIconButton iconName={'file-document'} onPress={() => { }} backgroundColor={appColorsCode.purple} />
 
-                <View style={{ marginLeft: 12 }}>
-                  <Text style={styles.menuTitle}>Application Enquiry</Text>
-                  <Text style={styles.menuSub}>
-                    Questions about your application
-                  </Text>
-                </View>
+              <View style={{ marginLeft: 12 }}>
+                <Text style={styles.menuTitle}>Application Enquiry</Text>
+                <Text style={styles.menuSub}>
+                  Questions about your application
+                </Text>
               </View>
-              <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
             </View>
-          </Card>
+            <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
+          </View>
+        </Card>
 
-          {/* Complaint Form */}
-          <Card style={styles.menuCard} onPress={() => navigation.navigate("ComplaintForm")}>
-            <View style={globalStyles.centerContent}>
-              <View style={globalStyles.alignIcon}>
-                <CustomIconButton iconName={'alert-circle'} onPress={() => { }} backgroundColor={appColorsCode.green} />
+        {/* Complaint Form */}
+        <Card style={styles.menuCard} onPress={() => navigation.navigate("ComplaintForm")}>
+          <View style={globalStyles.centerContent}>
+            <View style={globalStyles.alignIcon}>
+              <CustomIconButton iconName={'alert-circle'} onPress={() => { }} backgroundColor={appColorsCode.green} />
 
-                <View style={{ marginLeft: 12 }}>
-                  <Text style={styles.menuTitle}>Complaint Form</Text>
-                  <Text style={styles.menuSub}>
-                    Submit a complaint or feedback
-                  </Text>
-                </View>
+              <View style={{ marginLeft: 12 }}>
+                <Text style={styles.menuTitle}>Complaint Form</Text>
+                <Text style={styles.menuSub}>
+                  Submit a complaint or feedback
+                </Text>
               </View>
-              <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
             </View>
-          </Card>
+            <IconButton icon="chevron-right" size={24} iconColor={theme.text} />
+          </View>
+        </Card>
 
       </ScrollView>
-    </>
+    </View>
   );
 };
 
@@ -83,7 +81,6 @@ const getStyles = (theme: any) =>
     container: {
       flex: 1,
       backgroundColor: theme.background,
-      padding: 16,
     },
     menuCard: {
       marginBottom: 12,

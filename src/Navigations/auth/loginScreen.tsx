@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { ActivityIndicator, Card, Icon } from "react-native-paper";
+import { Card } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { setAuthData, setToken } from "../../appstore/reducers/authSlice";
 import CustomTextInput from "../../components/customTextInput";
 import { useAppTheme } from "../../hooks/colorTheme";
-import { appColorsCode } from "../../styles/appColorsCode";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useLoginMutation } from "../../service/authService";
 import ToastMessage from "../../components/toastMessage";
 import CustomHeader from "../../components/customheader";
+import CustomButton from "../../components/customButton";
 
 const LoginScreen = ({ navigation }: any) => {
     const dispatch = useDispatch();
@@ -29,7 +29,6 @@ const LoginScreen = ({ navigation }: any) => {
     const handleLogin = async (values: { email: string; password: string }) => {
         try {
             const response: any = await loginAuth(values);
-
             if (response?.data) {
                 dispatch(setToken(response.data.data?.authToken?.accessToken));
                 dispatch(setAuthData(response.data.data));
@@ -49,7 +48,8 @@ const LoginScreen = ({ navigation }: any) => {
             onSubmit={handleLogin}
         >
             {({ handleChange, handleSubmit, values, errors, submitCount, touched }) => (
-                <>
+
+                <View style={styles.container}>
                     <CustomHeader
                         showBackIcon
                         onPress={() => navigation.goBack()}
@@ -57,72 +57,63 @@ const LoginScreen = ({ navigation }: any) => {
                         showRightIcon={false}
                         showProfile={false}
                     />
-                    <View style={styles.container}>
-                        <Card style={styles.formContainer}>
 
-                            <Card.Content>
+                    <Card style={styles.formContainer}>
+                        <Card.Content>
+                            <CustomTextInput
+                                label="Email"
+                                placeholder="student@example.com"
+                                value={values.email}
+                                onChangeText={handleChange("email")}
+                                leftIconName="account"
+                            />
+                            {touched.email && errors.email && (
+                                <Text style={styles.errorText}>{errors.email}</Text>
+                            )}
+                            <CustomTextInput
+                                label="Password"
+                                placeholder="••••••"
+                                value={values.password}
+                                onChangeText={handleChange("password")}
+                                leftIconName="lock"
+                                secureTextEntry={!showPassword}  // fixed logic
+                                rightIconName={showPassword ? "eye-off" : "eye"}
+                                onPressRightIcon={() => setShowPassword(!showPassword)}
+                            />
+                            {touched.password && errors.password && (
+                                <Text style={styles.errorText}>{errors.password}</Text>
+                            )}
+                            <CustomButton
+                                title="Sign In"
+                                onPress={handleSubmit}
+                                iconName="login"
+                                iconColor="white"
+                                iconSize={20}
+                                isLoading={result?.isLoading}
+                                disabled={result?.isLoading}
+                            />
 
-                                <CustomTextInput
-                                    label="Email"
-                                    placeholder="student@example.com"
-                                    value={values.email}
-                                    onChangeText={handleChange("email")}
-                                    leftIconName="account"
-                                />
-                                {touched.email && errors.email && (
-                                    <Text style={styles.errorText}>{errors.email}</Text>
-                                )}
+                            <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
+                                <Text style={styles.forgetText}>Forget Password?</Text>
+                            </TouchableOpacity>
 
-                                <CustomTextInput
-                                    label="Password"
-                                    placeholder="••••••"
-                                    value={values.password}
-                                    onChangeText={handleChange("password")}
-                                    leftIconName="lock"
-                                    secureTextEntry={!showPassword}  // fixed logic
-                                    rightIconName={showPassword ? "eye-off" : "eye"}
-                                    onPressRightIcon={() => setShowPassword(!showPassword)}
-                                />
-                                {touched.password && errors.password && (
-                                    <Text style={styles.errorText}>{errors.password}</Text>
-                                )}
+                            <View style={styles.dividerRow}>
+                                <View style={styles.line} />
+                                <Text style={styles.dividerText}>OR</Text>
+                                <View style={styles.line} />
+                            </View>
 
-
-                                <TouchableOpacity style={styles.signInButton}
-                                    //@ts-ignore
-                                    onPress={handleSubmit}>
-                                    {result?.isLoading ? (
-                                        <ActivityIndicator animating color={appColorsCode.white} />
-                                    ) : (
-                                        <Text style={styles.signInButtonText}>Sign In</Text>
-                                    )}
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
-                                    <Text style={styles.forgetText}>Forget Password?</Text>
-                                </TouchableOpacity>
-
-                                {/* Divider */}
-                                <View style={styles.dividerRow}>
-                                    <View style={styles.line} />
-                                    <Text style={styles.dividerText}>OR</Text>
-                                    <View style={styles.line} />
-                                </View>
-
-                                {/* Microsoft Button */}
-                                <TouchableOpacity style={styles.signInButtonAlt}
-                                    //@ts-ignore
-
-                                    onPress={handleSubmit}>
-                                    <Icon source="microsoft-windows" size={20} color={appColorsCode.white} />
-                                    <Text style={[styles.signInButtonText, { marginLeft: 10 }]}>
-                                        Sign In With Microsoft
-                                    </Text>
-                                </TouchableOpacity>
-                            </Card.Content>
-                        </Card>
-                    </View>
-                </>
+                            <CustomButton
+                                title="Sign In With Microsoft"
+                                onPress={()=>{}}
+                                iconName="microsoft-windows"
+                                iconColor="white"
+                                iconSize={20}
+                                // isLoading={result?.isLoading}
+                            />
+                        </Card.Content>
+                    </Card>
+                </View>
             )}
         </Formik>
     );
@@ -170,26 +161,6 @@ const getStyles = (theme: any) =>
             marginBottom: 5,
             fontFamily: 'Poppins-Regular',
             marginTop: -15,
-        },
-        signInButton: {
-            backgroundColor: appColorsCode.primary,
-            borderRadius: 12,
-            padding: 16,
-            alignItems: "center",
-            marginTop: 10,
-        },
-        signInButtonAlt: {
-            backgroundColor: appColorsCode.primary,
-            borderRadius: 12,
-            padding: 16,
-            alignItems: "center",
-            marginTop: 10,
-            flexDirection: "row",
-            justifyContent: "center",
-        },
-        signInButtonText: {
-            color: "white",
-            fontSize: 16,
-            fontWeight: "600",
+
         },
     });
