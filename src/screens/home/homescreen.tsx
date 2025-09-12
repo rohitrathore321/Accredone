@@ -108,22 +108,23 @@ const HomeScreen = ({ navigation }: any) => {
           <LineChart
             data={blueLine}
             data2={grayLine}
-            height={220}
-            spacing={40}
-            initialSpacing={40}
-            color1="blue"
-            color2="gray"
+            height={250}
+            spacing={50}
+            initialSpacing={0}
+            color1={appColorsCode.orange}  
+            color2={appColorsCode.green}
             hideRules={false}
-            showVerticalLines
-            yAxisColor="lightgray"
-            xAxisColor="lightgray"
-            yAxisTextStyle={{ color: "black" }}
-            xAxisLabelTextStyle={{ color: "black" }}
-            dataPointsHeight={6}
-            dataPointsWidth={6}
-            dataPointsColor1="blue"
-            dataPointsColor2="gray"
+            showVerticalLines={true}
+            yAxisColor={theme.text}
+            xAxisColor={theme.text}
+            yAxisTextStyle={{ color: theme.text }}
+            xAxisLabelTextStyle={{ color: theme.text }}
+            dataPointsHeight={12}
+            dataPointsWidth={12}
+            dataPointsColor1={appColorsCode.orange}
+            dataPointsColor2={appColorsCode.green}
             thickness={3}
+            backgroundColor={theme.card} // dynamic background
           />
         </View>
 
@@ -221,7 +222,7 @@ const getStyles = (theme: any) =>
       color: theme.text,
     },
     graphWrapper: {
-      backgroundColor: "#fdffff",
+      backgroundColor: theme.card,
       borderRadius: 15,
       padding: 12,
       elevation: 5,

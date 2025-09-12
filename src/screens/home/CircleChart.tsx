@@ -1,10 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { PieChart } from "react-native-gifted-charts";
+import { useAppTheme } from "../../hooks/colorTheme";
 
 const { width } = Dimensions.get("window");
 
 const CircleChart = () => {
+  const theme = useAppTheme();
+  const styles = getStyles(theme);
+  
   const data = [
     { value: 50, color: "#4CAF50", text: "Completed" },
     { value: 30, color: "#FFC107", text: "Pending" },
@@ -38,9 +42,10 @@ const CircleChart = () => {
 
 export default CircleChart;
 
-const styles = StyleSheet.create({
+const getStyles = (theme: any) =>
+  StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+      backgroundColor: theme.card,
     borderRadius: 15,
     height: 200,
     width: width * 0.92,
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 14,
-    color: "#222",
+    color: theme.text,
     fontFamily: 'Poppins-SemiBold',
     marginTop: 10
   },

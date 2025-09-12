@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { LineChart } from 'react-native-gifted-charts';
+import { useAppTheme } from '../../hooks/colorTheme';
 
 const GraphChart = () => {
+
+  const theme = useAppTheme();
+  const styles = getStyles(theme);
   // Data for Blue Line
   const blueLine = [
     { value: 20, label: 'Jan' },
@@ -46,6 +50,7 @@ const GraphChart = () => {
         dataPointsColor1="blue"
         dataPointsColor2="gray"
         thickness={3}
+        
       />
     </View>
   );
@@ -53,12 +58,13 @@ const GraphChart = () => {
 
 export default GraphChart;
 
-const styles = StyleSheet.create({
-  
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-});
+const getStyles = (theme: any) =>
+  StyleSheet.create({
+    title: {
+      fontSize: 18,
+      textAlign: 'center',
+      marginBottom: 16,
+      color: theme.text,
+      fontFamily:'Poppins-SemiBold'
+    },
+  });
