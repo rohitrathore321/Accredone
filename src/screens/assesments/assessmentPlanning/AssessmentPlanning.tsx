@@ -10,7 +10,7 @@ import {
 import CustomHeader from "../../../components/customheader";
 import DetailCard from "../../../components/detailCard";
 import { appColorsCode } from "../../../styles/appColorsCode";
-import { Button, Card, Divider } from "react-native-paper";
+import { Button, Card, Divider, Icon } from "react-native-paper";
 import { useAppTheme } from "../../../hooks/colorTheme";
 import CustomIconButton from "../../../components/customIconButton";
 
@@ -110,52 +110,56 @@ const AssessmentPlanning = ({ navigation }: any) => {
         showProfile={false}
       />
       <ScrollView
-        style={{ paddingHorizontal: 16 }}
-        showsVerticalScrollIndicator={false}
-      >
+        style={{paddingHorizontal: 16}}
+        showsVerticalScrollIndicator={false}>
         {/* Top Detail Card */}
         <DetailCard
           title="ISO 14001 Assessment"
           details={[
-            { label: "Assessment ID", value: "2025-598x" },
-            { label: "Client", value: "TechCorp Solutions" },
-            { label: "Standard", value: "ISO 9001:2015" },
-            { label: "Assessment Type", value: "Initial Assessment" },
+            {label: 'Assessment ID', value: '2025-598x'},
+            {label: 'Client', value: 'TechCorp Solutions'},
+            {label: 'Standard', value: 'ISO 9001:2015'},
+            {label: 'Assessment Type', value: 'Initial Assessment'},
           ]}
         />
 
         {/* Activities Section */}
         <Card style={styles.menuCard}>
           <Card.Content>
-         <View style={styles.buttonPlan}>
+            <View style={styles.buttonPlan}>
               <Text
                 style={[
                   styles.txt,
-                  { fontFamily: "Poppins-SemiBold", fontSize: 16 ,marginRight:8},
-                ]}
-              >
+                  {
+                    fontFamily: 'Poppins-SemiBold',
+                    fontSize: 16,
+                    marginRight: 8,
+                  },
+                ]}>
                 Assessment Activities
               </Text>
-               <TouchableOpacity
-        style={styles.addActivityButton}
-        onPress={() => console.log("Add Activity")}
-      >
-        <Text style={styles.addActivityText}>＋ Add Activity</Text>
-      </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.addActivityButton}
+                onPress={() => console.log('Add Activity')}>
+                <Icon
+                  source="plus-circle-outline" 
+                  size={20}
+                  color="#3b82f6"
+                />
+                <Text style={styles.addActivityText}>Add Activity</Text>
+              </TouchableOpacity>
             </View>
-        <Card style={[styles.menuCard,{elevation:24,marginTop:8}]}>
-          <Card.Content>
-           
-
-            <FlatList
-              data={activities}
-              renderItem={renderActivity}
-              keyExtractor={(item) => item.id}
-              scrollEnabled={false} 
-            />
+            <Card style={[styles.menuCard, {elevation: 24, marginTop: 8}]}>
+              <Card.Content>
+                <FlatList
+                  data={activities}
+                  renderItem={renderActivity}
+                  keyExtractor={item => item.id}
+                  scrollEnabled={false}
+                />
+              </Card.Content>
+            </Card>
           </Card.Content>
-        </Card>
-        </Card.Content>
         </Card>
 
         {/* Bottom Buttons */}
@@ -163,22 +167,20 @@ const AssessmentPlanning = ({ navigation }: any) => {
           <Button
             mode="contained"
             icon="account-multiple"
-            onPress={() => navigation.navigate("ResourceAssessments")}
+            onPress={() => navigation.navigate('ResourceAssessments')}
             buttonColor={appColorsCode.purple}
             textColor="white"
-            style={styles.signInButton}
-          >
+            style={styles.signInButton}>
             Assign Resource
           </Button>
 
           <Button
             mode="contained"
             icon="content-save"
-            onPress={() => console.log("Save Plan")}
+            onPress={() => console.log('Save Plan')}
             buttonColor={theme.primary}
             textColor="white"
-            style={styles.contactButton}
-          >
+            style={styles.contactButton}>
             Save Plan
           </Button>
         </View>
@@ -240,18 +242,19 @@ const getStyles = (theme: any) =>
       fontSize: 12,
     },
     addActivityButton: {
-  borderWidth: 1,
-  borderColor: "#3b82f6", // same as theme.primary
-  borderRadius: 8,
-  paddingHorizontal: 12,
-  paddingVertical: 6,
-  justifyContent: "center",
-  alignItems: "center",
-},
-addActivityText: {
-  color: "#3b82f6", // theme.primary
-  fontFamily: "Poppins-SemiBold",
-  fontSize: 14,
-},
+      flexDirection: "row",
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: "#3b82f6",
+      borderRadius: 8,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+    },
+    addActivityText: {
+      marginLeft: 6,
+      color: "#3b82f6",
+      fontFamily: "Poppins-SemiBold",
+      fontSize: 14,
+    },
 
   });

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Icon } from "react-native-paper";
+import { useAppTheme } from "../../hooks/colorTheme";
 
 const tabs = {
     Home: { label: "Home", icon: "home" },
@@ -9,6 +10,8 @@ const tabs = {
 };
 
 const CustomBottomTabs = ({ state, descriptors, navigation }:any) => {
+    const theme = useAppTheme();
+  const styles = getStyles(theme);
     return (
         <View style={styles.container}>
             {state.routes.map((route:any, index:any) => {
@@ -59,14 +62,15 @@ const CustomBottomTabs = ({ state, descriptors, navigation }:any) => {
 
 export default CustomBottomTabs;
 
-const styles = StyleSheet.create({
+const getStyles = (theme: any) =>
+  StyleSheet.create({
     container: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        backgroundColor: "#ffffff",
+        backgroundColor: theme.background,
         borderTopWidth: 1,
-        borderTopColor: "#e5e7eb",
+        borderTopColor: theme.background,
         bottom: 0,
         position: "absolute",
         right: 0,

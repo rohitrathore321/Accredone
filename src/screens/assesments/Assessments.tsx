@@ -5,11 +5,21 @@ import CustomHeader from "../../components/customheader";
 import { useAppTheme } from "../../hooks/colorTheme";
 import CustomTextInput from "../../components/customTextInput";
 import CustomCard from "../../components/customCards";
+import CustomModal from "../../components/CustomModal";
 
 const Assessments = ({ navigation }: any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
   const [search, setSearch] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const modalItems = [
+  { id: "1", icon: "plus-circle", label: "Create New Assessment", onPress: () => navigation.navigate("AssessmentPlanning") },
+  { id: "2", icon: "content-duplicate", label: "Import Assessment", onPress: () => console.log("Duplicate") },
+  { id: "3", icon: "filter-variant", label: "Filter Assessment", onPress: () => console.log("Share") },
+  { id: "4", icon: "file-export", label: "Export All", onPress: () => console.log("Export") },
+  { id: "5", icon: "cog", label: "Assessment Settings", onPress: () => navigation.navigate("ResourceAssessments") },  
+  ];
 
   const data = [
     {
@@ -134,6 +144,7 @@ const Assessments = ({ navigation }: any) => {
         title="My Assessments"
         showRightIcon={true}
         rightIconName="plus"
+        rightIconOnpress={() => setModalVisible(true)}
         showProfile={false}
       />
 
@@ -172,9 +183,16 @@ const Assessments = ({ navigation }: any) => {
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          // contentContainerStyle={{ paddingBottom: 20 }}
+           scrollEnabled={false}  
         />
       </ScrollView>
+       <CustomModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        title="Assessment Actions"
+        items={modalItems}
+      />
     </View>
 
   );
