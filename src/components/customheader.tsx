@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginHorizontal: 16,
     marginVertical:8
+
   },
   title: {
     fontSize: 18,

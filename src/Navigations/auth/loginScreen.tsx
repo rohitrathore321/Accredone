@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
+
 import { useDispatch } from "react-redux";
 import { setAuthData, setToken } from "../../appstore/reducers/authSlice";
 import CustomTextInput from "../../components/customTextInput";
@@ -11,6 +12,8 @@ import { useLoginMutation } from "../../service/authService";
 import ToastMessage from "../../components/toastMessage";
 import CustomHeader from "../../components/customheader";
 import CustomButton from "../../components/customButton";
+import { appColorsCode } from "../../styles/appColorsCode";
+
 
 const LoginScreen = ({ navigation }: any) => {
     const dispatch = useDispatch();
@@ -50,6 +53,7 @@ const LoginScreen = ({ navigation }: any) => {
             {({ handleChange, handleSubmit, values, errors, submitCount, touched }) => (
 
                 <View style={styles.container}>
+
                     <CustomHeader
                         showBackIcon
                         onPress={() => navigation.goBack()}
@@ -105,15 +109,16 @@ const LoginScreen = ({ navigation }: any) => {
 
                             <CustomButton
                                 title="Sign In With Microsoft"
-                                onPress={()=>{}}
+                                onPress={() => { }}
                                 iconName="microsoft-windows"
                                 iconColor="white"
                                 iconSize={20}
-                                // isLoading={result?.isLoading}
+                            // isLoading={result?.isLoading}
                             />
                         </Card.Content>
                     </Card>
                 </View>
+
             )}
         </Formik>
     );
@@ -134,6 +139,7 @@ const getStyles = (theme: any) =>
             borderRadius: 12,
             paddingVertical: 20,
             paddingHorizontal: 10,
+
         },
         forgetText: {
             fontSize: 14,
@@ -161,6 +167,37 @@ const getStyles = (theme: any) =>
             marginBottom: 5,
             fontFamily: 'Poppins-Regular',
             marginTop: -15,
-
+        },
+        formErrorBox: {
+            backgroundColor: appColorsCode.negative,
+            padding: 10,
+            marginBottom: 20,
+            borderRadius: 6,
+        },
+        formErrorText: {
+            color: appColorsCode.white,
+            textAlign: "center",
+            fontWeight: "600",
+        },
+        signInButton: {
+            backgroundColor: appColorsCode.primary,
+            borderRadius: 12,
+            padding: 16,
+            alignItems: "center",
+            marginTop: 10,
+        },
+        signInButtonAlt: {
+            backgroundColor: appColorsCode.primary,
+            borderRadius: 12,
+            padding: 16,
+            alignItems: "center",
+            marginTop: 10,
+            flexDirection: "row",
+            justifyContent: "center",
+        },
+        signInButtonText: {
+            color: "white",
+            fontSize: 16,
+            fontWeight: "600",
         },
     });

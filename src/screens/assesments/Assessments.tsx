@@ -21,6 +21,7 @@ const Assessments = ({ navigation }: any) => {
     { id: "5", icon: "cog", label: "Assessment Settings", onPress: () => navigation.navigate("ResourceAssessments") },
   ];
 
+
   const data = [
     {
       id: "1",
@@ -134,6 +135,7 @@ const Assessments = ({ navigation }: any) => {
       onPress={() => navigation.navigate("AssessmentDetail")}
       priorityBadge={true}
     />
+
   );
 
 

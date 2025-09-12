@@ -11,7 +11,6 @@ import {ProgressView} from "@react-native-community/progress-view";
 import CustomModal from "../../../components/CustomModal";
 
 
-
 const AssessmentDetail = ({ navigation }: any) => {
     const theme = useAppTheme();
     const styles = getStyles(theme);
@@ -36,6 +35,7 @@ const AssessmentDetail = ({ navigation }: any) => {
         rightIconName="dots-vertical"
         rightIconOnpress={() => setModalVisible(true)}
         showProfile={false}
+
       />
       <ScrollView
         style={{paddingHorizontal: 16}}

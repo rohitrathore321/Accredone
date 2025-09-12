@@ -45,6 +45,7 @@ const CustomIconButton = ({
       />
     </View>
   );
+
 };
 
 export default CustomIconButton;
@@ -58,4 +59,5 @@ const styles = StyleSheet.create({
     margin: 0, // ✅ remove extra padding
     alignSelf: 'center',
   },
+
 });

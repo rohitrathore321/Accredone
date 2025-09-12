@@ -10,6 +10,7 @@ import DescriptionCard from '../../components/descriptionCard';
 import QuickActionCard from '../../components/quickActionCard';
 import DetailCard from '../../components/detailCard';
 
+
 const caseDetails = ({ navigation }: any) => {
     const theme = useAppTheme();
     const styles = getStyles(theme);
@@ -105,6 +106,7 @@ const caseDetails = ({ navigation }: any) => {
                     </Card.Content>
                 </Card>
             </ScrollView>
+
         </View>
     )
 }
@@ -143,4 +145,5 @@ const getStyles = (theme: any) =>
             borderWidth: 0.5,
             marginVertical: 10
         }
+
     })

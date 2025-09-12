@@ -6,6 +6,7 @@ import { Card, Icon } from 'react-native-paper';
 import { appColorsCode } from '../../styles/appColorsCode';
 import CustomCard from '../../components/customCards';
 
+
 const MyCase = ({ navigation }: any) => {
   const theme = useAppTheme();
   const styles = getStyles(theme);
@@ -94,6 +95,7 @@ const MyCase = ({ navigation }: any) => {
 
   );
 
+
   return (
     <View style={styles.container}>
       <CustomHeader
@@ -124,6 +126,7 @@ const MyCase = ({ navigation }: any) => {
             <Icon source="check-circle" size={25} color={appColorsCode.green} />
             <Text style={[styles.txt, { marginTop: 5 }]}>12</Text>
             <Text style={[styles.txt, { fontFamily: 'Poppins-Regular' }]}>Resolved</Text>
+
           </Card.Content>
         </Card>
       </View>
@@ -134,6 +137,7 @@ const MyCase = ({ navigation }: any) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
+
 
     </View>
   )
@@ -152,6 +156,7 @@ const getStyles = (theme: any) =>
       justifyContent: 'space-between',
       marginBottom: 8,
       marginHorizontal: 16,
+
     },
     card: {
       width: '30%',

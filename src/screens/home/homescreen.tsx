@@ -130,6 +130,7 @@ const HomeScreen = ({ navigation }: any) => {
         {/* Activity Lists (Reused component) */}
         <ActivityList title="Upcoming Assessments" activities={activities} />
         <ActivityList title="Recent Activity" activities={activities} />
+
       </ScrollView>
     </View>
   );
@@ -147,6 +148,7 @@ const getStyles = (theme: any) =>
       paddingHorizontal: 16,
       paddingBottom: 100,
     },
+
     topRow: {
       flexDirection: "row",
       justifyContent: "space-between",
@@ -168,6 +170,23 @@ const getStyles = (theme: any) =>
       color: theme.text,
     },
     statLabel: {
+      fontSize: 13,
+      fontFamily: "Poppins-Light",
+      color: theme.text,
+    },
+    menuCard: {
+      marginBottom: 12,
+      borderRadius: 12,
+      elevation: 2,
+      backgroundColor: theme.card,
+      padding: 8,
+    },
+    menuTitle: {
+      fontSize: 15,
+      fontFamily: "Poppins-SemiBold",
+      color: theme.text,
+    },
+    menuSub: {
       fontSize: 12,
       fontFamily: "Poppins-Light",
       color: theme.text,
@@ -211,5 +230,6 @@ const getStyles = (theme: any) =>
       height: 1,
       backgroundColor: appColorsCode.gray,
       marginVertical: 8,
+      color: theme.color,
     },
   });
