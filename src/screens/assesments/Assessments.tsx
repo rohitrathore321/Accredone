@@ -192,7 +192,7 @@ const getStyles = (theme: any) =>
       flexDirection: 'row',
       alignItems: 'center',
       marginHorizontal: 16,
-      marginTop: 16,
+
     },
     searchInput: {
       flexGrow: 1,
@@ -203,8 +203,8 @@ const getStyles = (theme: any) =>
       marginRight: 9,
     },
     searchBtn: {
-      width: 40,
-      height: 40,
+      width: 50,
+      height: 50,
       borderRadius: 12,
       backgroundColor: theme.card,
       justifyContent: 'center',
@@ -222,7 +222,7 @@ const getStyles = (theme: any) =>
     },
     summaryCard: {
       width: 110,
-      height: 60,
+      height: 80,
       borderRadius: 12,
       backgroundColor: theme.card,
       elevation: 3,

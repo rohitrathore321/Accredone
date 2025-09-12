@@ -13,7 +13,7 @@ interface DetailItem {
 
 interface CaseCardProps {
     title: string;
-    status: string;
+    status?: string; 
     details: DetailItem[];
     statusColor?: string;
     onPress?: () => void;
@@ -39,9 +39,11 @@ const DetailCard: React.FC<CaseCardProps> = ({
                 {/* Title + Status Tag */}
                 <View style={globalStyles.flexRow}>
                     <Text style={[styles.txt, styles.title]}>{title}</Text>
-                    <View style={[styles.tag, { backgroundColor: statusColor }]}>
-                        <Text style={[styles.txt, styles.tagText]}>{status}</Text>
-                    </View>
+                    {status && (
+            <View style={[styles.tag, { backgroundColor: statusColor }]}>
+              <Text style={[styles.txt, styles.tagText]}>{status}</Text>
+            </View>
+          )}
                 </View>
             </Card.Content>
 

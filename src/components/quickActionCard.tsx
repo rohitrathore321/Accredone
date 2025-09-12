@@ -49,7 +49,7 @@ const getStyles = (theme: any) =>
             marginVertical: 6,
             borderRadius: 15,
             elevation: 5,
-            backgroundColor: theme.card,
+            backgroundColor:theme.card,
             paddingVertical: 8,
         },
         txt: {
@@ -57,6 +57,7 @@ const getStyles = (theme: any) =>
             fontFamily: "Poppins-Regular",
         },
         heading: {
+            color: theme.text,
             fontFamily: "Poppins-SemiBold",
             fontSize: 16,
             marginBottom: 12,
@@ -67,7 +68,7 @@ const getStyles = (theme: any) =>
             justifyContent: "space-between",
         },
         btn: {
-            backgroundColor: appColorsCode.gray,
+            backgroundColor:theme.card,
             paddingVertical: 16,
             width: "47%", // ensures 2 in a row
             borderRadius: 15,

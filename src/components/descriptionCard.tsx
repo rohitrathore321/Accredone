@@ -15,9 +15,9 @@ const DescriptionCard = ({ title, subtitle }: descriptionCardProps) => {
     return (
         <Card.Title
             title={title}
-            titleStyle={{ fontSize: 16, fontFamily: "Poppins-SemiBold" }}
+            titleStyle={{ fontSize: 16, fontFamily: "Poppins-SemiBold", color: theme.text, }}
             subtitle={subtitle}
-            subtitleStyle={{ fontSize: 14, fontFamily: "Poppins-Regular", }}
+            subtitleStyle={{ fontSize: 14, fontFamily: "Poppins-Regular",  color: theme.text,}}
             subtitleNumberOfLines={0}
             style={[styles.menuCard, { padding: 16 }]}
         />
